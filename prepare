@@ -1,0 +1,7 @@
+# -*- mode: Shell-script-*-
+#!/usr/bin/bash
+
+git clone https://github.com/sirech/erza.git
+cd erza
+git submodule init
+git submodule update

@@ -1,0 +1,7 @@
+# -*- mode: Shell-script-*-
+#!/usr/bin/bash
+
+yum install git
+yum install epel-release
+yum install -y python-pip
+pip install docker-compose
