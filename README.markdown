@@ -34,7 +34,3 @@ Before running `docker-compose` for the first time, do:
 ### Running
 
     docker-compose up -d
-   
-   
-    
-    
