@@ -13,7 +13,7 @@ services:
       - "80:80"
 
     volumes:
-      - "public:/srv/public:ro"
+      - "shelf_public:/srv/shelf_public:ro"
 
     depends_on:
       - shelf
@@ -49,12 +49,11 @@ services:
       - 3000:3000
 
     volumes:
-      - public:/app/public
+      - shelf_public:/app/public
 
     depends_on:
       - db
 
 volumes:
   db:
-  public:
-
+  shelf_public:
