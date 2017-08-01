@@ -8,15 +8,18 @@ services:
 
     environment:
       SHELF_HOST: "shelf.${HOST}"
+      SHELF2_HOST: "shelf2.${HOST}"
     
     ports:
       - "80:80"
 
     volumes:
       - "shelf_public:/srv/shelf_public:ro"
+      - "shelf2_public:/srv/shelf2_public:ro"
 
     depends_on:
       - shelf
+      - shelf2
 
     command: ./run.sh
 
@@ -54,6 +57,26 @@ services:
     depends_on:
       - db
 
+  shelf2:
+    container_name: shelf2
+    build: ./shelf2
+
+    env_file: .env
+
+    environment:
+      DB_HOST: db
+      RAILS_LOG_TO_STDOUT: 1
+
+    ports:
+      - 3000:3000
+
+    volumes:
+      - shelf2_public:/app/public
+
+    depends_on:
+      - db
+
 volumes:
   db:
   shelf_public:
+  shelf2_public:
