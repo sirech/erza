@@ -13,6 +13,7 @@ services:
       - "80:80"
 
     volumes:
+      - "/srv/main:/srv/main:ro"
       - "shelf2_public:/srv/shelf2_public:ro"
 
     depends_on:
