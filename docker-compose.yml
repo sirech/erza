@@ -19,6 +19,7 @@ services:
 
     depends_on:
       - shelf2
+      - homepage
 
     command: ./run.sh
 
@@ -55,6 +56,15 @@ services:
 
     depends_on:
       - db
+
+  homepage:
+    container_name: homepage
+    build: ./homepage
+
+    env_file: .env
+
+    volumes:
+      - "/srv/main:/app/public"
 
 volumes:
   db:

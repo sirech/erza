@@ -1,3 +1,6 @@
 [submodule "shelf2"]
 	path = shelf2
 	url = https://github.com/sirech/shelf2.git
+[submodule "homepage"]
+	path = homepage
+	url = https://github.com/sirech/homepage.git
