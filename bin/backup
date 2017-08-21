@@ -1,0 +1,15 @@
+# -*- mode: Shell-script-*-
+
+#!/usr/bin/env bash
+
+if [ -f /tmp/shelf2.sql ] ; then
+    rm /tmp/shelf2.sql
+fi
+
+docker exec db bash -c 'mysqldump shelf2_production --password=$DB_PASSWORD' > /tmp/shelf2.sql 2> /dev/null
+
+if [ ! -s /tmp/shelf2.sql ] ; then
+    echo 'Backup could not be created'
+    rm /tmp/shelf2.sql
+    exit 1
+fi

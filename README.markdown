@@ -19,7 +19,6 @@ Before running `docker-compose` for the first time, do:
 
     docker-compose up -d
     
-    
 ## Data
 
 ### Backup of the database
