@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+cd ~
+
 # Install libraries
 yum install -y git
 yum install -y epel-release
@@ -7,7 +9,10 @@ yum install -y python-pip
 pip install docker-compose
 
 # Set up configuration
-git clone https://github.com/sirech/erza.git
+if [ ! -d erza ] ; then
+    git clone https://github.com/sirech/erza.git
+fi
+
 cd erza
 git submodule init
 git submodule update
