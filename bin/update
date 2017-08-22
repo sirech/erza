@@ -10,5 +10,7 @@ fi
 
 cd erza
 
+echo '*** Pulling latest changes from main repository ***'
 git pull origin master || { echo 'Could not pull from origin' ; exit 1 ;}
+echo '*** Pulling latest changes from submodules ***'
 git submodule update --recursive || { echo 'Could not update submodules' ; exit 1; }
