@@ -1,0 +1,6 @@
+# -*- mode: Shell-script-*-
+
+#!/usr/bin/env bash
+cd ~
+
+cat /tmp/restore/shelf2.sql | docker exec -i db bash -c 'mysql --password=$DB_PASSWORD shelf2_production' 2> /dev/null
