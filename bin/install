@@ -1,18 +1,23 @@
+# -*- mode: Shell-script-*-
 #!/usr/bin/env bash
 
 cd ~
 
 # Install libraries
+echo '*** Installing basic packages ***'
 yum install -y git
 yum install -y epel-release
 yum install -y python-pip
+echo '*** Installing docker-compose ***'
 pip install docker-compose
 
 # Set up configuration
+echo '*** Fetching erza ***'
 if [ ! -d erza ] ; then
     git clone https://github.com/sirech/erza.git
 fi
 
+echo '*** Initializing modules ***'
 cd erza
 git submodule init
 git submodule update

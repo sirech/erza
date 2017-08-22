@@ -1,6 +1,6 @@
 ## Installation Guide
 
-    bash <(curl -s https://raw.githubusercontent.com/sirech/erza/master/install.sh)
+    bash <(curl -s https://raw.githubusercontent.com/sirech/erza/master/bin/install)
 
 ## Running the server
 
