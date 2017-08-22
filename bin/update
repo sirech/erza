@@ -1,0 +1,14 @@
+# -*- mode: Shell-script-*-
+#!/usr/bin/env bash
+
+cd ~
+
+if [ ! -d erza ] ; then
+    echo 'configuration is not there'
+    exit 1
+fi
+
+cd erza
+
+git pull origin master || { echo 'Could not pull from origin' ; exit 1 ;}
+git submodule update --recursive || { echo 'Could not update submodules' ; exit 1; }
