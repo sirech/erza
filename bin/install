@@ -1,6 +1,7 @@
 # -*- mode: Shell-script-*-
 #!/usr/bin/env bash
 
+echo '****** INSTALL ******'
 cd ~
 
 # Install libraries

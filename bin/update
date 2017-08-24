@@ -1,6 +1,7 @@
 # -*- mode: Shell-script-*-
 #!/usr/bin/env bash
 
+echo '****** UPDATE ******'
 cd ~
 
 if [ ! -d erza ] ; then
@@ -11,13 +12,13 @@ fi
 cd erza
 
 echo '*** Pulling latest changes from main repository ***'
-git pull origin master || { echo 'Could not pull from origin' ; exit 1; }
+git pull origin master || { echo 'ERROR: Could not pull from origin' ; exit 1; }
 echo '*** Pulling latest changes from submodules ***'
-git submodule update --recursive || { echo 'Could not update submodules' ; exit 1; }
+git submodule update --recursive || { echo 'ERROR: Could not update submodules' ; exit 1; }
 
 echo '*** Pulling latest images ***'
-docker-compose pull || { echo 'Could not pull images'; exit 1; }
+docker-compose pull || { echo 'ERROR: Could not pull images'; exit 1; }
 echo '*** Building images ***'
-docker-compose build || { echo 'Could not build images'; exit 1; }
+docker-compose build || { echo 'ERROR: Could not build images'; exit 1; }
 echo '*** Starting images ***'
-docker-compose up -d || { echo 'Could not start images'; exit 1; }
+docker-compose up -d || { echo 'ERROR: Could not start images'; exit 1; }

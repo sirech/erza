@@ -1,13 +1,15 @@
 # -*- mode: Shell-script-*-
 
 #!/usr/bin/env bash
+
+echo '****** RESTORE ******'
 cd ~
 
-docker exec -it shelf2 rake db:create || { echo 'Database could not be created' ; exit 1; }
+docker exec -it shelf2 rake db:create || { echo 'ERROR: Database could not be created' ; exit 1; }
 
 if docker exec -it shelf2 rake status ; then
     echo 'Restoring Database'
-    cat /tmp/restore/shelf2.sql | docker exec -i db bash -c 'mysql --password=$DB_PASSWORD shelf2_production' 2> /dev/null || { echo 'Database could not be restored' ; exit 1; }
+    cat /tmp/restore/shelf2.sql | docker exec -i db bash -c 'mysql --password=$DB_PASSWORD shelf2_production' 2> /dev/null || { echo 'ERROR: Database could not be restored' ; exit 1; }
 else
     echo 'Database does not need to be restored'
 fi
