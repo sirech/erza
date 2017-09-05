@@ -16,6 +16,7 @@ services:
       - "/srv/main:/srv/main:ro"
       - "/srv/images:/srv/images:ro"
       - "shelf2_public:/srv/shelf2_public:ro"
+      - "/cert:/cert:ro"
 
     depends_on:
       - shelf2
