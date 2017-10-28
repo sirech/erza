@@ -20,7 +20,7 @@ services:
       - "/cert:/cert:ro"
 
     depends_on:
-      - shelf2
+      - shelf2-frontend
       - homepage
 
     command: ./run.sh
@@ -40,9 +40,9 @@ services:
     volumes:
       - db:/var/lib/mysql
 
-  shelf2:
+  shelf2-backend:
     container_name: shelf2
-    build: ./shelf2
+    build: ./shelf2-backend
 
     env_file: .env
 
@@ -53,11 +53,20 @@ services:
     ports:
       - 3000:3000
 
+    depends_on:
+      - db
+
+  shelf2-frontend:
+    container_name: shelf2-frontend
+    build: ./shelf2-frontend
+
+    env_file: .env
+
     volumes:
       - shelf2_public:/app/public
 
     depends_on:
-      - db
+      - shelf2-backend
 
   homepage:
     container_name: homepage
