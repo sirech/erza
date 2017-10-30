@@ -14,7 +14,13 @@ cd erza
 echo '*** Pulling latest changes from main repository ***'
 git pull origin master || { echo 'ERROR: Could not pull from origin' ; exit 1; }
 echo '*** Pulling latest changes from submodules ***'
-git submodule update --recursive || { echo 'ERROR: Could not update submodules' ; exit 1; }
+repos=$(git submodule | awk '{ print $2 }')
+for repo in $repos ; do
+    echo "*** Pulling changes from ${repo} ***"
+    pushd $repo
+    git pull origin master || { echo "Error: Could not pull ${repo}" ; exit 1; }
+    popd
+done
 
 echo '*** Pulling latest images ***'
 docker-compose pull || { echo 'ERROR: Could not pull images'; exit 1; }
