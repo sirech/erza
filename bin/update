@@ -18,8 +18,5 @@ git submodule update --recursive || { echo 'ERROR: Could not update submodules' 
 
 echo '*** Pulling latest images ***'
 docker-compose pull || { echo 'ERROR: Could not pull images'; exit 1; }
-echo '*** Building images ***'
-docker-compose build || { echo 'ERROR: Could not build images'; exit 1; }
 echo '*** Starting images ***'
-docker-compose down || { echo 'ERROR: Could not stop images' ; exit 1; }
-docker-compose up -d || { echo 'ERROR: Could not start images'; exit 1; }
+docker-compose up -d --build || { echo 'ERROR: Could not start images'; exit 1; }
