@@ -2,7 +2,7 @@
 #!/usr/bin/env bash
 
 echo '****** INSTALL ******'
-cd ~
+repo=/srv/erza
 
 # Install libraries
 echo '*** Installing basic packages ***'
@@ -14,11 +14,11 @@ pip install docker-compose
 
 # Set up configuration
 echo '*** Fetching erza ***'
-if [ ! -d erza ] ; then
-    git clone https://github.com/sirech/erza.git
+if [ ! -d ${repo} ] ; then
+    git clone https://github.com/sirech/erza.git ${repo}
 fi
 
 echo '*** Initializing modules ***'
-cd erza
+cd ${repo}
 git submodule init
 git submodule update

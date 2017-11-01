@@ -2,23 +2,23 @@
 #!/usr/bin/env bash
 
 echo '****** UPDATE ******'
-cd ~
+repo=/srv/erza
 
-if [ ! -d erza ] ; then
+if [ ! -d ${repo} ] ; then
     echo 'configuration is not there'
     exit 1
 fi
 
-cd erza
+cd ${repo}
 
 echo '*** Pulling latest changes from main repository ***'
 git pull origin master || { echo 'ERROR: Could not pull from origin' ; exit 1; }
 echo '*** Pulling latest changes from submodules ***'
 repos=$(git submodule | awk '{ print $2 }')
-for repo in $repos ; do
-    echo "*** Pulling changes from ${repo} ***"
-    pushd $repo
-    git pull origin master || { echo "Error: Could not pull ${repo}" ; exit 1; }
+for subm in $repos ; do
+    echo "*** Pulling changes from ${subm} ***"
+    pushd $subm
+    git pull origin master || { echo "Error: Could not pull ${subm}" ; exit 1; }
     popd
 done
 

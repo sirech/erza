@@ -1,0 +1,27 @@
+# -*- mode: Shell-script-*-
+#!/usr/bin/env bash
+
+echo '****** CI ******'
+repo=/srv/erza
+user=travis
+key=/tmp/restore/deploy_rsa.pub
+
+# Add CI User
+echo "*** Setting up ci user ${user} ***"
+useradd $user
+usermod -a -G docker $user
+
+echo '*** Setting up repository rights ***'
+if [ ! -f ${key} ] ; then
+    echo "ssh key is not there"
+    exit 1
+fi
+
+mkdir /home/${user}/.ssh
+mv $key /home/${user}/.ssh/authorized_keys
+chown -R $user:$user /home/${user}/.ssh
+chmod 0700 /home/${user}/.ssh
+chmod 0600 /home/${user}/.ssh/authorized_keys
+
+# Set up rights for repo
+chown -R :docker $repo
