@@ -42,7 +42,7 @@ services:
 
   shelf2-backend:
     container_name: shelf2
-    build: ./shelf2-backend
+    image: quay.io/sirech/shelf2-backend
 
     env_file: .env
 
@@ -58,7 +58,7 @@ services:
 
   shelf2-frontend:
     container_name: shelf2-frontend
-    build: ./shelf2-frontend
+    image: quay.io/sirech/shelf2-frontend
 
     env_file: .env
 
@@ -70,7 +70,7 @@ services:
 
   homepage:
     container_name: homepage
-    build: ./homepage
+    image: quay.io/sirech/homepage
 
     env_file: .env
 
