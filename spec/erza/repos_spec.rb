@@ -5,7 +5,6 @@ describe package('git') do
 end
 
 repo = '/srv/erza'.freeze
-repos = %w[homepage shelf2-backend shelf2-frontend].freeze
 
 describe file(repo) do
   it { should be_directory }
@@ -28,11 +27,5 @@ describe file("#{repo}/.env") do
 
   %w[HOST DB_PASSWORD SECRET_KEY_BASE].each do |key|
     its(:content) { should match Regexp.new("#{key}=") }
-  end
-end
-
-repos.each do |sub_repo|
-  describe file("#{repo}/#{sub_repo}/.git") do
-    it { should be_file }
   end
 end
