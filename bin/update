@@ -3,6 +3,7 @@
 
 echo '****** UPDATE ******'
 repo=/srv/erza
+app=$1
 
 if [ ! -d ${repo} ] ; then
     echo 'configuration is not there'
@@ -23,6 +24,6 @@ for subm in $repos ; do
 done
 
 echo '*** Pulling latest images ***'
-docker-compose pull || { echo 'ERROR: Could not pull images'; exit 1; }
+docker-compose pull $app || { echo "ERROR: Could not pull images [$app]"; exit 1; }
 echo '*** Starting images ***'
-docker-compose up -d --build || { echo 'ERROR: Could not start images'; exit 1; }
+docker-compose up -d --build $app || { echo "ERROR: Could not start images [$app]"; exit 1; }
