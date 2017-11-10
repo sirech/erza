@@ -4,8 +4,9 @@
 
 echo '****** RESTORE ******'
 db=/tmp/restore/shelf2.sql
+consul=/tmp/restore/consul.json
 
-docker exec -t shelf2 rake db:create || { echo 'ERROR: Database could not be created' ; exit 1; }
+docker exec -t shelf2 envconsul -consul-addr consul:8500 -prefix shelf2-backend -upcase rake db:create || { echo 'ERROR: Database could not be created' ; exit 1; }
 
 if [ ! -f ${db} ] ; then
     echo "Db backup is not there"
@@ -18,3 +19,10 @@ if ! docker exec -t shelf2 rake status ; then
 else
     echo 'Database does not need to be restored'
 fi
+
+if [ ! -f ${consul} ] ; then
+    echo "Consul backup is not there"
+    exit 1
+fi
+
+docker exec -i consul consul kv import "$(cat ${consul})"

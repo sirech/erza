@@ -4,10 +4,6 @@
 
 ## Running the server
 
-### Environment
-
-`.env.example` file should be copied to `.env`. Adapt the values.
-
 ### First run
 
 Before running `docker-compose` for the first time, do:

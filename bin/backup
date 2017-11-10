@@ -9,7 +9,17 @@ fi
 docker exec db bash -c 'mysqldump shelf2_production --password=$DB_PASSWORD' > /tmp/shelf2.sql 2> /dev/null
 
 if [ ! -s /tmp/shelf2.sql ] ; then
-    echo 'Backup could not be created'
-    rm /tmp/shelf2.sql
+    echo 'Backup database could not be created'
+    exit 1
+fi
+
+if [ -f /tmp/consul.json ] ; then
+    rm /tmp/consul.json
+fi
+
+docker exec consul consul kv export > /tmp/consul.json
+
+if [ ! -s /tmp/consul.json ] ; then
+    echo 'Backup settings could not be created'
     exit 1
 fi

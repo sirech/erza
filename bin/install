@@ -17,8 +17,3 @@ echo '*** Fetching erza ***'
 if [ ! -d ${repo} ] ; then
     git clone https://github.com/sirech/erza.git ${repo}
 fi
-
-echo '*** Initializing modules ***'
-cd ${repo}
-git submodule init
-git submodule update
