@@ -1,14 +1,18 @@
 version: '2'
 services:
+  consul:
+    container_name: consul
+    image: consul:1.0.0
+
+    command: "consul agent -server -client 0.0.0.0 -bootstrap -data-dir=/tmp/consul -ui"
+
+    ports:
+      - 8500:8500
+
   nginx:
     container_name: nginx
     build: ./nginx
 
-    env_file: .env
-
-    environment:
-      SHELF2_HOST: "shelf2.${HOST}"
-    
     ports:
       - "80:80"
       - "443:443"
@@ -20,19 +24,15 @@ services:
       - "/cert:/cert:ro"
 
     depends_on:
+      - consul
       - shelf2-frontend
       - homepage
 
-    command: ./run.sh
+    command: "envconsul -consul-addr consul:8500 -prefix hosting -upcase ./run.sh"
 
   db:
     container_name: db
     image: mysql:5.6
-
-    env_file: .env
-
-    environment:
-      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
 
     ports:
       - 3306:3306
@@ -40,27 +40,27 @@ services:
     volumes:
       - db:/var/lib/mysql
 
+    command: "envconsul -consul-addr consul:8500 -prefix database -upcase docker-entrypoint.sh mysqld"
+
+    depends_on:
+      - consul
+
   shelf2-backend:
     container_name: shelf2
     image: quay.io/sirech/shelf2-backend
 
-    env_file: .env
-
-    environment:
-      DB_HOST: db
-      RAILS_LOG_TO_STDOUT: 1
-
     ports:
       - 3000:3000
 
+    command: "envconsul -consul-addr consul:8500 -prefix shelf2-backend -upcase rails s -b 0.0.0.0"
+
     depends_on:
+      - consul
       - db
 
   shelf2-frontend:
     container_name: shelf2-frontend
     image: quay.io/sirech/shelf2-frontend
-
-    env_file: .env
 
     volumes:
       - shelf2_public:/app/public
@@ -71,8 +71,6 @@ services:
   homepage:
     container_name: homepage
     image: quay.io/sirech/homepage
-
-    env_file: .env
 
     volumes:
       - "/srv/main:/app/public"
