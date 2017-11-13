@@ -12,7 +12,7 @@ fi
 
 cd ${repo}
 
-if [ -z "${app}" ];
+if [ -z "${app}" ] ; then
    echo '*** Pulling latest changes from main repository ***'
    git pull origin master || { echo 'ERROR: Could not pull from origin' ; exit 1; }
 fi
