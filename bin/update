@@ -12,8 +12,10 @@ fi
 
 cd ${repo}
 
-echo '*** Pulling latest changes from main repository ***'
-git pull origin master || { echo 'ERROR: Could not pull from origin' ; exit 1; }
+if [ -z "${app}" ];
+   echo '*** Pulling latest changes from main repository ***'
+   git pull origin master || { echo 'ERROR: Could not pull from origin' ; exit 1; }
+fi
 
 echo '*** Pulling latest images ***'
 docker-compose pull $app || { echo "ERROR: Could not pull images [$app]"; exit 1; }

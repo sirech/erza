@@ -8,14 +8,24 @@ repo = '/srv/erza'.freeze
 
 describe file(repo) do
   it { should be_directory }
-  it { should be_grouped_into 'docker' }
+  it { should be_grouped_into 'root' }
 end
 
 describe file("#{repo}/bin") do
   it { should be_directory }
-  it { should be_grouped_into 'docker' }
+  it { should be_grouped_into 'root' }
 end
 
 describe file("#{repo}/.git") do
   it { should be_directory }
+end
+
+describe file("#{repo}/bin/update") do
+  it { should be_file }
+  it { should be_executable.by('others') }
+end
+
+describe file("#{repo}/docker-compose.yml") do
+  it { should be_file }
+  it { should be_readable.by('others') }
 end

@@ -9,45 +9,6 @@ services:
     ports:
       - 8500:8500
 
-    volumes:
-      "consul:/consul/data"
-
-  nginx:
-    container_name: nginx
-    build: ./nginx
-
-    ports:
-      - "80:80"
-      - "443:443"
-
-    volumes:
-      - "/srv/main:/srv/main:ro"
-      - "/srv/images:/srv/images:ro"
-      - "shelf2_public:/srv/shelf2_public:ro"
-      - "/cert:/cert:ro"
-
-    depends_on:
-      - consul
-      - shelf2-frontend
-      - homepage
-
-    command: "envconsul -consul-addr consul:8500 -prefix hosting -upcase ./run.sh"
-
-  db:
-    container_name: db
-    build: ./db
-
-    ports:
-      - 3306:3306
-
-    volumes:
-      - db:/var/lib/mysql
-
-    command: "envconsul -consul-addr consul:8500 -prefix database -upcase docker-entrypoint.sh mysqld"
-
-    depends_on:
-      - consul
-
   shelf2-backend:
     container_name: shelf2
     image: quay.io/sirech/shelf2-backend
@@ -59,26 +20,3 @@ services:
 
     depends_on:
       - consul
-      - db
-
-  shelf2-frontend:
-    container_name: shelf2-frontend
-    image: quay.io/sirech/shelf2-frontend
-
-    volumes:
-      - shelf2_public:/app/public
-
-    depends_on:
-      - shelf2-backend
-
-  homepage:
-    container_name: homepage
-    image: quay.io/sirech/homepage
-
-    volumes:
-      - "/srv/main:/app/public"
-
-volumes:
-  db:
-  shelf2_public:
-  consul:
