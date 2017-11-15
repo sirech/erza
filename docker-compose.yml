@@ -67,7 +67,7 @@ services:
     ports:
       - 3000:3000
 
-    command: "envconsul -consul-addr consul:8500 -prefix shelf2-backend -upcase rails s -b 0.0.0.0"
+    command: "rails s -b 0.0.0.0"
 
     depends_on:
       - consul
