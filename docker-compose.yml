@@ -38,6 +38,15 @@ services:
       - "shelf2_public:/srv/shelf2_public:ro"
       - "/cert:/cert:ro"
 
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: nginx
+
+    links:
+      - fluentd
+
     depends_on:
       - consul
       - shelf2-frontend
@@ -89,6 +98,40 @@ services:
 
     volumes:
       - "/srv/main:/app/public"
+
+  fluentd:
+    container_name: fluentd
+    build: ./fluentd
+
+    links:
+      - elasticsearch
+
+    ports:
+      - 24224:24224
+      - 24224:24224/udp
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: elasticsearch
+
+    expose:
+      - 9200
+
+    ports:
+      - 9200:9200
+
+    environment:
+      ES_JAVA_OPTS: "-Xms256m -Xmx256m"
+
+  kibana:
+    container_name: kibana
+    image: kibana
+
+    links:
+      - elasticsearch
+
+    ports:
+      - 5601:5601
 
 volumes:
   db:
