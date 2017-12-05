@@ -78,6 +78,15 @@ services:
 
     command: "rails s -b 0.0.0.0"
 
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: "{{.Name}}"
+
+    links:
+      - fluentd
+
     depends_on:
       - consul
       - db
