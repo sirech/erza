@@ -14,6 +14,15 @@ containers = {
   },
   shelf2: {
     persistent: true
+  },
+  fluentd: {
+    persistent: true
+  },
+  elasticsearch: {
+    persistent: true
+  },
+  kibana: {
+    persistent: true
   }
 }.freeze
 
