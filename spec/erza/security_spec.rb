@@ -7,3 +7,7 @@ require 'spec_helper'
     it { should be_directory }
   end
 end
+
+describe cron do
+  it { should have_entry '0 6 1 * * sh /srv/erza/bin/renew' }
+end

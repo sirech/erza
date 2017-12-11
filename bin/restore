@@ -5,6 +5,7 @@
 echo '****** RESTORE ******'
 db=/tmp/restore/shelf2.sql
 consul=/tmp/restore/consul.json
+repo=/srv/erza
 
 docker exec -t shelf2 envconsul -consul-addr consul:8500 -prefix shelf2-backend -upcase rake db:create || { echo 'ERROR: Database could not be created' ; exit 1; }
 
@@ -26,3 +27,5 @@ if [ ! -f ${consul} ] ; then
 fi
 
 docker exec -i consul consul kv import "$(cat ${consul})"
+
+(crontab -l 2>/dev/null; echo "0 6 1 * * sh ${repo}/bin/renew") | crontab -
