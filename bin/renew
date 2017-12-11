@@ -1,0 +1,18 @@
+# -*- mode: Shell-script-*-
+
+#!/usr/bin/env bash
+
+echo '****** RENEW ******'
+repo=/srv/erza
+cd ${repo}
+
+echo '****** Stopping nginx ******'
+docker-compose stop nginx
+
+echo '****** Renewing certificate ******'
+docker run -it --rm -v /cert:/etc/letsencrypt -p 443:443 deliverous/certbot renew --standalone --register-unsafely-without-email --agree-tos --preferred-challenges tls-sni
+
+echo '****** Restarting nginx ******'
+docker-compose restart nginx
+
+
