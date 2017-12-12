@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 containers = {
-  consul: {
-    persistent: true
-  },
   nginx: {
     persistent: true
   },

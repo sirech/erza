@@ -6,20 +6,9 @@ if [ -f /tmp/shelf2.sql ] ; then
     rm /tmp/shelf2.sql
 fi
 
-docker exec db envconsul -consul-addr consul:8500 -prefix shelf2-backend -upcase bash -c 'mysqldump shelf2_production --password=$DB_PASSWORD' > /tmp/shelf2.sql 2> /dev/null
+docker exec db bash -c 'mysqldump shelf2_production --password=$DB_PASSWORD' > /tmp/shelf2.sql 2> /dev/null || { echo "Error dumping database"; exit 1; }
 
 if [ ! -s /tmp/shelf2.sql ] ; then
     echo 'Backup database could not be created'
-    exit 1
-fi
-
-if [ -f /tmp/consul.json ] ; then
-    rm /tmp/consul.json
-fi
-
-docker exec consul consul kv export > /tmp/consul.json
-
-if [ ! -s /tmp/consul.json ] ; then
-    echo 'Backup settings could not be created'
     exit 1
 fi

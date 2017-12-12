@@ -1,32 +1,14 @@
 version: '2'
 services:
-  consul:
-    container_name: consul
-    image: consul:1.0.0
-
-    command: "consul agent -server -client 0.0.0.0 -bootstrap -data-dir=/consul/data -ui"
-
-    ports:
-      - 8500:8500
-
-    volumes:
-      - "consul:/consul/data"
-
-  registrator:
-    container_name: registrator
-    image: gliderlabs/registrator
-
-    command: "consul://consul:8500"
-
-    depends_on:
-      - consul
-
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock
 
   nginx:
     container_name: nginx
     build: ./nginx
+
+    env_file: .env
+
+    environment:
+      SHELF2_HOST: "shelf2.${HOST}"
 
     ports:
       - "80:80"
@@ -48,15 +30,19 @@ services:
       - fluentd
 
     depends_on:
-      - consul
       - shelf2-frontend
       - homepage
 
-    command: "envconsul -consul-addr consul:8500 -prefix hosting -upcase ./run.sh"
+    command: ./run.sh
 
   db:
     container_name: db
-    build: ./db
+    image: mysql:5.6
+
+    env_file: .env
+
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
 
     ports:
       - 3306:3306
@@ -64,14 +50,15 @@ services:
     volumes:
       - db:/var/lib/mysql
 
-    command: "envconsul -consul-addr consul:8500 -prefix database -upcase docker-entrypoint.sh mysqld"
-
-    depends_on:
-      - consul
-
   shelf2-backend:
     container_name: shelf2
     image: quay.io/sirech/shelf2-backend
+
+    env_file: .env
+
+    environment:
+      DB_HOST: db
+      RAILS_LOG_TO_STDOUT: 1
 
     ports:
       - 3000:3000
@@ -88,7 +75,6 @@ services:
       - fluentd
 
     depends_on:
-      - consul
       - db
 
   shelf2-frontend:
@@ -145,4 +131,3 @@ services:
 volumes:
   db:
   shelf2_public:
-  consul:
