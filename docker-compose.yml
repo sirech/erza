@@ -17,7 +17,7 @@ services:
     volumes:
       - "/srv/main:/srv/main:ro"
       - "/srv/images:/srv/images:ro"
-      - "shelf2_public:/srv/shelf2_public:ro"
+      - "/srv/shelf2_public:/srv/shelf2_public:ro"
       - "/cert:/cert:ro"
 
     logging:
@@ -82,7 +82,7 @@ services:
     image: quay.io/sirech/shelf2-frontend
 
     volumes:
-      - shelf2_public:/app/public
+      - /srv/shelf2_public:/app/public
 
     depends_on:
       - shelf2-backend
@@ -130,4 +130,3 @@ services:
 
 volumes:
   db:
-  shelf2_public:
