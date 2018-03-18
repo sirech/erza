@@ -89,7 +89,7 @@ services:
 
   homepage:
     container_name: homepage
-    image: quay.io/sirech/homepage
+    image: quay.io/sirech/homepage2
 
     volumes:
       - "/srv/main:/app/public"
