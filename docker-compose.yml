@@ -29,6 +29,10 @@ services:
     links:
       - fluentd
 
+    networks:
+      - backend
+      - web
+
     depends_on:
       - shelf2-frontend
       - homepage
@@ -46,6 +50,9 @@ services:
 
     ports:
       - 3306:3306
+
+    networks:
+      - backend
 
     volumes:
       - db:/var/lib/mysql
@@ -73,6 +80,10 @@ services:
 
     links:
       - fluentd
+
+    networks:
+      - backend
+      - web
 
     depends_on:
       - db
@@ -105,6 +116,9 @@ services:
       - 24224:24224
       - 24224:24224/udp
 
+    networks:
+      - backend
+
   elasticsearch:
     container_name: elasticsearch
     image: elasticsearch
@@ -118,6 +132,9 @@ services:
     environment:
       ES_JAVA_OPTS: "-Xms256m -Xmx256m"
 
+    networks:
+      - backend
+
   kibana:
     container_name: kibana
     image: kibana
@@ -127,6 +144,13 @@ services:
 
     ports:
       - 5601:5601
+
+    networks:
+      - backend
+
+networks:
+  backend:
+  web:
 
 volumes:
   db:
