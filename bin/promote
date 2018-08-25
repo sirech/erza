@@ -1,0 +1,25 @@
+# -*- mode: Shell-script-*-
+#!/usr/bin/env bash
+
+set -eo pipefail
+set -o nounset
+
+echo '****** UPDATE ******'
+repo=/srv/erza
+folder=$1
+dest=$2
+
+if [ ! -d ${repo} ] ; then
+    echo 'configuration is not there'
+    exit 1
+fi
+
+echo '*** Copying new release ***'
+cd ${dest}
+find . -mtime +14 | xargs rm -rf
+cp -Rf $folder .
+
+
+echo '*** Restarting nginx ***'
+cd ${repo}
+docker-compose restart nginx || { echo "ERROR: Could not restart nginx"; exit 1; }
