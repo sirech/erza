@@ -17,7 +17,7 @@ fi
 echo '*** Copying new release ***'
 cd ${dest}
 find . -mtime +14 | xargs rm -rf
-cp -Rf $folder .
+cp -Rf $folder/* .
 
 
 echo '*** Restarting nginx ***'
