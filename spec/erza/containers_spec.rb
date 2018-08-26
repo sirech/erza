@@ -1,38 +1,14 @@
 require 'spec_helper'
 
-containers = {
-  nginx: {
-    persistent: true
-  },
-  db: {
-    persistent: true
-  },
-  homepage: {
-  },
-  shelf2: {
-    persistent: true
-  },
-  fluentd: {
-    persistent: true
-  },
-  elasticsearch: {
-    persistent: true
-  },
-  kibana: {
-    persistent: true
-  }
-}.freeze
+containers = %i[nginx db shelf2 fluentd elasticsearch kibana]
 
 describe service('docker') do
   it { is_expected.to be_running }
 end
 
-containers.each do |name, h|
+containers.each do |name|
   describe docker_container(name) do
     it { is_expected.to exist }
-
-    if h[:persistent]
-      it { is_expected.to be_running }
-    end
+    it { is_expected.to be_running }
   end
 end
