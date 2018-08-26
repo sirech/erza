@@ -1,19 +1,19 @@
 require 'spec_helper'
 
 describe group('docker') do
-  it { should exist }
+  it { is_expected.to exist }
 end
 
 user = 'travis'.freeze
 home = "/home/#{user}".freeze
 
 describe user(user) do
-  it { should exist }
+  it { is_expected.to exist }
 
-  it { should belong_to_group 'docker' }
+  it { is_expected.to belong_to_group 'docker' }
 end
 
 describe file("#{home}/.ssh/authorized_keys") do
-  it { should be_file }
-  it { should be_mode 600 }
+  it { is_expected.to be_file }
+  it { is_expected.to be_mode 600 }
 end

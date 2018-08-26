@@ -24,15 +24,15 @@ containers = {
 }.freeze
 
 describe service('docker') do
-  it { should be_running }
+  it { is_expected.to be_running }
 end
 
 containers.each do |name, h|
   describe docker_container(name) do
-    it { should exist }
+    it { is_expected.to exist }
 
     if h[:persistent]
-      it { should be_running }
+      it { is_expected.to be_running }
     end
   end
 end
