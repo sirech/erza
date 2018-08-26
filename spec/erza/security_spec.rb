@@ -9,5 +9,5 @@ require 'spec_helper'
 end
 
 describe cron do
-  it { should have_entry '0 6 1 * * sh /srv/erza/bin/renew' }
+  it { should have_entry '0 6 1 * * sh /srv/erza/bin/renew 2>&1 | /usr/bin/logger -t letsencrypt' }
 end
