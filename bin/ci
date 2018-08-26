@@ -25,3 +25,7 @@ chmod 0600 /home/${user}/.ssh/authorized_keys
 
 # Set up rights for repo
 chown -R :docker $repo
+
+# Folders for assets
+mkdir -p ${repo}/main
+chown -R ${user} ${repo}/main

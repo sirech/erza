@@ -29,9 +29,11 @@ describe file("#{repo}/.env") do
   end
 end
 
-describe file("#{repo}/bin/update") do
-  it { is_expected.to be_file }
-  it { is_expected.to be_executable.by('others') }
+%i[update promote].each do |script|
+  describe file("#{repo}/bin/#{script}") do
+    it { is_expected.to be_file }
+    it { is_expected.to be_executable.by('others') }
+  end
 end
 
 describe file("#{repo}/docker-compose.yml") do
