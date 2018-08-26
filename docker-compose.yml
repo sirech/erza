@@ -33,9 +33,6 @@ services:
       - backend
       - web
 
-    depends_on:
-      - shelf2-frontend
-
     command: ./run.sh
 
   db:
@@ -86,16 +83,6 @@ services:
 
     depends_on:
       - db
-
-  shelf2-frontend:
-    container_name: shelf2-frontend
-    image: quay.io/sirech/shelf2-frontend
-
-    volumes:
-      - /srv/shelf2_public:/app/public
-
-    depends_on:
-      - shelf2-backend
 
   fluentd:
     container_name: fluentd

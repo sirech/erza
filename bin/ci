@@ -29,3 +29,6 @@ chown -R :docker $repo
 # Folders for assets
 mkdir -p ${repo}/main
 chown -R ${user} ${repo}/main
+
+mkdir -p ${repo}/shelf2_public
+chown -R ${user} ${repo}/shelf2_public
