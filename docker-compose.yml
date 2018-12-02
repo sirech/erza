@@ -20,15 +20,6 @@ services:
       - "/srv/shelf2_public:/srv/shelf2_public:ro"
       - "/cert:/cert:ro"
 
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: localhost:24224
-        tag: "{{.Name}}"
-
-    links:
-      - fluentd
-
     networks:
       - backend
       - web
@@ -68,64 +59,12 @@ services:
 
     command: "rails s -b 0.0.0.0"
 
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: localhost:24224
-        tag: "{{.Name}}"
-
-    links:
-      - fluentd
-
     networks:
       - backend
       - web
 
     depends_on:
       - db
-
-  fluentd:
-    container_name: fluentd
-    build: ./fluentd
-
-    links:
-      - elasticsearch
-
-    ports:
-      - 24224:24224
-      - 24224:24224/udp
-
-    networks:
-      - backend
-
-  elasticsearch:
-    container_name: elasticsearch
-    image: elasticsearch
-
-    expose:
-      - 9200
-
-    ports:
-      - 9200:9200
-
-    environment:
-      ES_JAVA_OPTS: "-Xms256m -Xmx256m"
-
-    networks:
-      - backend
-
-  kibana:
-    container_name: kibana
-    image: kibana
-
-    links:
-      - elasticsearch
-
-    ports:
-      - 5601:5601
-
-    networks:
-      - backend
 
 networks:
   backend:
