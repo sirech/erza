@@ -9,6 +9,7 @@ services:
 
     environment:
       SHELF2_HOST: "shelf2.${HOST}"
+      ECHO_HOST: "echo.${HOST}"
 
     ports:
       - "80:80"
