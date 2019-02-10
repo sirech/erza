@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-containers = %i[nginx db shelf2 fluentd elasticsearch kibana]
+containers = %i[nginx db shelf2 echo]
 
 describe service('docker') do
   it { is_expected.to be_running }
