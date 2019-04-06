@@ -16,7 +16,7 @@ fi
 
 echo '*** Copying new release ***'
 cd ${dest}
-find . -mtime +14 | xargs rm -rf
+find . -mtime +14 -not -path "." | xargs rm -rf
 cp -Rf $folder/* .
 
 
