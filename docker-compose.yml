@@ -67,7 +67,6 @@ services:
 
     networks:
       - backend
-      - web
 
     depends_on:
       - db
@@ -82,10 +81,11 @@ services:
       - 4000:4000
 
     networks:
-      - web
+      - backend
 
 networks:
   backend:
+    internal: true
   web:
 
 volumes:
