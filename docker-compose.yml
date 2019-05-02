@@ -28,9 +28,9 @@ services:
 
     command: ./run.sh
 
-   depends_on:
-     - shelf2-backend
-     - echo
+    depends_on:
+      - shelf2-backend
+      - echo
 
   db:
     container_name: db
