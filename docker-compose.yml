@@ -20,12 +20,17 @@ services:
       - "/srv/images:/srv/images:ro"
       - "/srv/shelf2_public:/srv/shelf2_public:ro"
       - "/cert:/cert:ro"
+      - "/var/www/certbot:/var/www/certbot"
 
     networks:
       - backend
       - web
 
     command: ./run.sh
+
+   depends_on:
+     - shelf2-backend
+     - echo
 
   db:
     container_name: db
