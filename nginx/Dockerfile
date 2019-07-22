@@ -3,6 +3,7 @@ FROM nginx
 RUN rm /etc/nginx/conf.d/default.conf
 
 COPY nginx.conf /etc/nginx/nginx.conf
+COPY security-headers.conf /etc/nginx/security-headers.conf
 
 COPY run.sh run.sh
 
