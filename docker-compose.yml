@@ -41,9 +41,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
 
-    ports:
-      - 3306:3306
-
     networks:
       - backend
 
@@ -60,12 +57,10 @@ services:
       DB_HOST: db
       RAILS_LOG_TO_STDOUT: 1
 
-    ports:
-      - 3000:3000
-
     command: "rails s -b 0.0.0.0"
 
     networks:
+      - web
       - backend
 
     depends_on:
@@ -76,9 +71,6 @@ services:
     image: quay.io/sirech/echo
 
     env_file: .env
-
-    ports:
-      - 4000:4000
 
     networks:
       - backend
