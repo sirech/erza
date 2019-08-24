@@ -9,7 +9,7 @@ require 'spec_helper'
 end
 
 describe cron do
-  it { is_expected.to have_entry '0 6 1 * * sh /srv/erza/bin/renew 2>&1 | /usr/bin/logger -t letsencrypt' }
+  it { is_expected.to have_entry '0 6 * * 1 sh /srv/erza/bin/renew 2>&1 | /usr/bin/logger -t letsencrypt' }
 end
 
 [22, 80, 443].each do |port|
