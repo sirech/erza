@@ -89,6 +89,9 @@ services:
     networks:
       - backend
 
+    depends_on:
+      - db
+
 networks:
   backend:
     internal: true
