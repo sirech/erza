@@ -75,6 +75,20 @@ services:
     networks:
       - backend
 
+  cookery2-backend:
+    container_name: cookery2
+    image: quay.io/sirech/cookery2-backend
+
+    env_file: .env
+
+    environment:
+      ENV: prod
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: "${DB_PASSWORD}"
+
+    networks:
+      - backend
+
 networks:
   backend:
     internal: true
