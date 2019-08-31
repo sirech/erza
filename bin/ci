@@ -32,3 +32,6 @@ chown -R ${user} ${repo}/main
 
 mkdir -p ${repo}/shelf2_public
 chown -R ${user} ${repo}/shelf2_public
+
+mkdir -p ${repo}/cookery2_public
+chown -R ${user} ${repo}/cookery2_public

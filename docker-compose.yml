@@ -9,6 +9,7 @@ services:
 
     environment:
       SHELF2_HOST: "shelf2.${HOST}"
+      COOKERY2_HOST: "cookery2.${HOST}"
       ECHO_HOST: "echo.${HOST}"
 
     ports:
@@ -19,6 +20,7 @@ services:
       - "/srv/main:/srv/main:ro"
       - "/srv/images:/srv/images:ro"
       - "/srv/shelf2_public:/srv/shelf2_public:ro"
+      - "/srv/cookery2_public:/srv/cookery2_public:ro"
       - "/cert:/cert:ro"
       - "/var/www/certbot:/var/www/certbot"
 
@@ -30,6 +32,7 @@ services:
 
     depends_on:
       - shelf2-backend
+      - cookery2-backend
       - echo
 
   db:

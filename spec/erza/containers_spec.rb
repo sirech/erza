@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-containers = %i[nginx db shelf2 echo]
+containers = %i[nginx db shelf2 echo cookery2]
 
 describe service('docker') do
   it { is_expected.to be_running }
