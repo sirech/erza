@@ -12,3 +12,14 @@ if [ ! -s /tmp/shelf2.sql ] ; then
     echo 'Backup database could not be created'
     exit 1
 fi
+
+if [ -f /tmp/cookery2.sql ] ; then
+  rm /tmp/cookery2.sql
+fi
+
+docker exec db bash -c 'mysqldump cookery2_production --password=$DB_PASSWORD' > /tmp/cookery2.sql 2> /dev/null || { echo "Error dumping database"; exit 1; }
+
+if [ ! -s /tmp/cookery2.sql ] ; then
+  echo 'Backup database could not be created'
+  exit 1
+fi
