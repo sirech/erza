@@ -90,6 +90,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: "${DB_PASSWORD}"
 
     networks:
+      - web
       - backend
 
     depends_on:
