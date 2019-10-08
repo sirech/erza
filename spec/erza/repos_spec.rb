@@ -24,7 +24,7 @@ describe file("#{repo}/.env") do
   it { is_expected.to be_file }
   it { is_expected.to be_readable.by('others') }
 
-  %w[HOST DB_PASSWORD SECRET_KEY_BASE].each do |key|
+  %w[HOST ALTERNATIVE_HOST DB_PASSWORD SECRET_KEY_BASE].each do |key|
     its(:content) { is_expected.to match Regexp.new("#{key}=") }
   end
 end
