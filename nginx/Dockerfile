@@ -14,3 +14,7 @@ COPY main.conf /tmp/main.conf.template
 COPY images.conf /tmp/images.conf.template
 
 RUN mkdir /etc/nginx/sites-enabled
+
+RUN adduser -D runner
+
+USER runner
