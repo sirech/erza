@@ -1,7 +1,7 @@
 server {
     listen *;
 
-    server_name images.${HOST};
+    server_name images.{{ getenv "HOST" }};
 
     location / {
         root /srv/images;
