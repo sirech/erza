@@ -10,5 +10,6 @@ COPY conf/*.conf /etc/nginx/
 COPY run.sh .
 
 COPY templates /tmp/templates
+COPY fragments /tmp/fragments
 
 RUN mkdir /etc/nginx/sites-enabled

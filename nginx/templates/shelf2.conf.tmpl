@@ -2,19 +2,7 @@ upstream shelf2 {
     server shelf2:3000 max_fails=1 fail_timeout=15s;
 }
 
-server {
-    listen 80;
-    server_name {{ getenv "SHELF2_HOST" }};
-    server_tokens off;
-
-    location /.well-known/acme-challenge/ {
-        root /var/www/certbot;
-    }
-
-    location / {
-        return 301 https://$host$request_uri;
-    }
-}
+{{ template "acme-challenge" .Env.SHELF2_HOST }}
 
 server {
     listen 443 ssl http2;

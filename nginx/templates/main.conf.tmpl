@@ -1,17 +1,5 @@
-server {
-    listen 80;
-    server_name {{ getenv "HOST" }}
-    server_name {{ getenv "HOST" }} {{ getenv "ALTERNATIVE_HOST" }};
-    server_tokens off;
-
-    location /.well-known/acme-challenge/ {
-        root /var/www/certbot;
-    }
-
-    location / {
-        return 301 https://$host$request_uri;
-    }
-}
+{{ template "acme-challenge" .Env.HOST }}
+{{ template "acme-challenge" .Env.ALTERNATIVE_HOST }}
 
 server {
     listen 443 ssl http2;
