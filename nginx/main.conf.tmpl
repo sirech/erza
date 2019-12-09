@@ -1,6 +1,7 @@
 server {
     listen 80;
-    server_name ${HOST} ${ALTERNATIVE_HOST};
+    server_name {{ getenv "HOST" }}
+    server_name {{ getenv "HOST" }} {{ getenv "ALTERNATIVE_HOST" }};
     server_tokens off;
 
     location /.well-known/acme-challenge/ {
@@ -16,26 +17,26 @@ server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
 
-    server_name ${ALTERNATIVE_HOST} www.${ALTERNATIVE_HOST};
+    server_name {{ getenv "ALTERNATIVE_HOST" }} www.{{ getenv "ALTERNATIVE_HOST" }};
 
-    ssl_certificate           /cert/live/${ALTERNATIVE_HOST}/fullchain.pem;
-    ssl_certificate_key       /cert/live/${ALTERNATIVE_HOST}/privkey.pem;
-    ssl_trusted_certificate   /cert/live/${ALTERNATIVE_HOST}/chain.pem;
+    ssl_certificate           /cert/live/{{ getenv "ALTERNATIVE_HOST" }}/fullchain.pem;
+    ssl_certificate_key       /cert/live/{{ getenv "ALTERNATIVE_HOST" }}/privkey.pem;
+    ssl_trusted_certificate   /cert/live/{{ getenv "ALTERNATIVE_HOST" }}/chain.pem;
 
-    return 301 https://${HOST}$request_uri;
+    return 301 https://{{ getenv "HOST" }}$request_uri;
 }
 
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
 
-    server_name ${HOST} www.${HOST};
+    server_name {{ getenv "HOST" }} www.{{ getenv "HOST" }};
 
     root /srv/main;
 
-    ssl_certificate           /cert/live/${HOST}/fullchain.pem;
-    ssl_certificate_key       /cert/live/${HOST}/privkey.pem;
-    ssl_trusted_certificate   /cert/live/${HOST}/chain.pem;
+    ssl_certificate           /cert/live/{{ getenv "HOST" }}/fullchain.pem;
+    ssl_certificate_key       /cert/live/{{ getenv "HOST" }}/privkey.pem;
+    ssl_trusted_certificate   /cert/live/{{ getenv "HOST" }}/chain.pem;
 
     # Improve HTTPS performance with session resumption
   	ssl_session_cache shared:SSL:10m;
