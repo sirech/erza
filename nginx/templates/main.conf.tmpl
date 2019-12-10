@@ -2,42 +2,18 @@
 {{ template "acme-challenge" .Env.ALTERNATIVE_HOST }}
 
 server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-
     server_name {{ getenv "ALTERNATIVE_HOST" }} www.{{ getenv "ALTERNATIVE_HOST" }};
 
-    ssl_certificate           /cert/live/{{ getenv "ALTERNATIVE_HOST" }}/fullchain.pem;
-    ssl_certificate_key       /cert/live/{{ getenv "ALTERNATIVE_HOST" }}/privkey.pem;
-    ssl_trusted_certificate   /cert/live/{{ getenv "ALTERNATIVE_HOST" }}/chain.pem;
+    {{ template "ssl-enabled" .Env.ALTERNATIVE_HOST }}
 
     return 301 https://{{ getenv "HOST" }}$request_uri;
 }
 
 server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-
     server_name {{ getenv "HOST" }} www.{{ getenv "HOST" }};
-
     root /srv/main;
 
-    ssl_certificate           /cert/live/{{ getenv "HOST" }}/fullchain.pem;
-    ssl_certificate_key       /cert/live/{{ getenv "HOST" }}/privkey.pem;
-    ssl_trusted_certificate   /cert/live/{{ getenv "HOST" }}/chain.pem;
-
-    # Improve HTTPS performance with session resumption
-  	ssl_session_cache shared:SSL:10m;
-  	ssl_session_timeout 10m;
-
-	  # Enable server-side protection against BEAST attacks
-  	ssl_protocols TLSv1.2;
-	  ssl_prefer_server_ciphers on;
-	  ssl_ciphers "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384";
-
-    # RFC-7919 recommended: https://wiki.mozilla.org/Security/Server_Side_TLS#ffdhe4096
-    # ssl_dhparam /etc/ssl/ffdhe4096.pem;
-    ssl_ecdh_curve secp521r1:secp384r1;
+    {{ template "ssl-enabled" .Env.HOST }}
 
     include /etc/nginx/security-headers.conf;
 
