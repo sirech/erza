@@ -17,9 +17,9 @@ server {
 
     include /etc/nginx/security-headers.conf;
 
-    location ~* .(js|css)$ {
-        gzip_static on;
+    gzip_static on;
 
+    location ~* .(js|css)$ {
         # add_header resets headers
         include /etc/nginx/security-headers.conf;
         add_header Cache-Control public;
@@ -29,16 +29,18 @@ server {
         rewrite ^([^.\?]*[^/])$ $1/ permanent;
         try_files $uri $uri/ $uri/index.html =404;
 
-        gzip_static on;
-
         # add_header resets headers
         include /etc/nginx/security-headers.conf;
         add_header Cache-Control "no-cache";
     }
 
     location ^~ /static/  {
-        gzip_static on;
+        # add_header resets headers
+        include /etc/nginx/security-headers.conf;
+        add_header Cache-Control public;
+    }
 
+    location = /favicon.ico {
         # add_header resets headers
         include /etc/nginx/security-headers.conf;
         add_header Cache-Control public;
