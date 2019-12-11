@@ -17,21 +17,27 @@ server {
 
     include /etc/nginx/security-headers.conf;
 
+    location ~* .(js|css)$ {
+        gzip_static on;
+
+        # add_header resets headers
+        include /etc/nginx/security-headers.conf;
+        add_header Cache-Control public;
+    }
+
     location / {
         rewrite ^([^.\?]*[^/])$ $1/ permanent;
         try_files $uri $uri/ $uri/index.html =404;
 
         gzip_static on;
-        expires off;
 
         # add_header resets headers
         include /etc/nginx/security-headers.conf;
-        add_header Cache-Control "no-store";
+        add_header Cache-Control "no-cache";
     }
 
     location ^~ /static/  {
         gzip_static on;
-        expires max;
 
         # add_header resets headers
         include /etc/nginx/security-headers.conf;
