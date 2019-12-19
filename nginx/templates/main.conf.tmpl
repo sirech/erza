@@ -21,7 +21,7 @@ server {
 
     location / {
         rewrite ^([^.\?]*[^/])$ $1/ permanent;
-        try_files $uri $uri/ $uri/index.html 404.html =404;
+        try_files $uri $uri/ $uri/index.html /404.html =404;
 
         # add_header resets headers
         include /etc/nginx/security-headers.conf;
