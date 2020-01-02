@@ -3,11 +3,16 @@
 user 'travis' do
   password ''
   system_user true
+  shell '/bin/bash'
 end
 
 directory '/home/travis/.ssh' do
   action :create
   mode '700'
+end
+
+execute 'add to docker group' do
+  command 'usermod -aG docker travis'
 end
 
 if File.exist?('./files/authorized_keys')
