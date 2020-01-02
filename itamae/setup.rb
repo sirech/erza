@@ -64,6 +64,7 @@ end
 remote_file '/srv/erza/.env' do
   action :create
   source '~/Dropbox/erza/.env'
+  mode '644'
 end
 
 # Folders
