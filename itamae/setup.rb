@@ -8,6 +8,8 @@ end
 
 directory '/home/travis/.ssh' do
   action :create
+  owner 'travis'
+  group 'travis'
   mode '700'
 end
 
