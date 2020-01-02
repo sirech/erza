@@ -27,7 +27,7 @@ end
 
 if File.exist?('./files/cert')
   puts 'installing certificates'
-  remote_directory '/cert2' do
+  remote_directory '/cert' do
     action :create
     source '../files/cert'
   end
