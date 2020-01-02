@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-%w[cert].each do |file|
+%w[cert cert/live cert/renewal].each do |file|
   describe file("/#{file}") do
     it { is_expected.to be_directory }
     it { is_expected.to be_readable }
