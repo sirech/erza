@@ -6,6 +6,7 @@ echo '****** RESTORE ******'
 db=/tmp/restore/shelf2.sql
 repo=/srv/erza
 
+# Shelf2
 docker exec -t shelf2 rake db:create || { echo 'ERROR: Database could not be created' ; exit 1; }
 
 if [ ! -f ${db} ] ; then
@@ -20,4 +21,13 @@ else
     echo 'Database does not need to be restored'
 fi
 
-(crontab -l 2>/dev/null; echo "0 6 1 * * sh ${repo}/bin/renew") | crontab -
+# Cookery2
+db2=/tmp/restore/cookery2.sql
+
+if [ ! -f ${db2} ] ; then
+  echo "Db backup is not there"
+  exit 1
+fi
+
+echo 'Restoring Database'
+cat $db2 | docker exec -i db bash -c 'mysql --password=$DB_PASSWORD cookery2_production' 2> /dev/null || { echo 'ERROR: Database could not be restored' ; exit 1; }
