@@ -1,3 +1,5 @@
+require 'colorize'
+
 include_recipe 'definitions/add_user_to_group'
 
 include_recipe 'user'

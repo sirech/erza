@@ -1,11 +1,11 @@
 if File.exist?('../files/cert')
-  puts 'installing certificates'
+  puts 'installing certificates'.green
   remote_directory '/cert' do
     action :create
     source '../files/cert'
   end
 else
-  puts 'certificates not present'
+  puts 'certificates not present'.red
 end
 
 execute 'auto-renewal for certificates' do
