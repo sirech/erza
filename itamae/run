@@ -3,9 +3,10 @@
 set -eu -o pipefail
 
 NODE_ATTRIBUTES="--node-yaml vars.yml"
+LOG_LEVEL="${LOG_LEVEL:-info}"
 
 (
   cd itamae
   # shellcheck disable=SC2086
-  bundle exec itamae ssh --host erza ${NODE_ATTRIBUTES} setup.rb
+  bundle exec itamae ssh -l ${LOG_LEVEL} --host erza ${NODE_ATTRIBUTES} setup.rb
 )
