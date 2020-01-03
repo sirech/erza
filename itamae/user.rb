@@ -15,7 +15,7 @@ add_user_to_group node[:ci_user] do
   group 'docker'
 end
 
-if File.exist?('./files/authorized_keys')
+if File.exist?('../files/authorized_keys')
   puts 'installing authorized keys'
   remote_file "/home/#{node[:ci_user]}/.ssh/authorized_keys" do
     action :create

@@ -1,4 +1,4 @@
-if File.exist?('./files/cert')
+if File.exist?('../files/cert')
   puts 'installing certificates'
   remote_directory '/cert' do
     action :create
