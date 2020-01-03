@@ -60,7 +60,7 @@ end
 git '' do
   action :sync
   destination '/srv/erza'
-  repository 'https://github.com/sirech/erza.git'
+  repository node[:repository]
 end
 
 remote_file '/srv/erza/.env' do
