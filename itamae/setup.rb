@@ -43,7 +43,7 @@ else
 end
 
 execute 'auto-renewal for certificates' do
-  command '(crontab -l 2>/dev/null; echo "0 6 * * 1 sh /srv/erza/bin/renew 2>&1 | /usr/bin/logger -t letsencrypt") | crontab -'
+  command "(crontab -l 2>/dev/null; echo \"0 6 * * 1 sh #{node[:directory]}/bin/renew 2>&1 | /usr/bin/logger -t letsencrypt\") | crontab -"
   not_if 'crontab -l | grep -q bin/renew'
 end
 
@@ -59,11 +59,11 @@ end
 
 git '' do
   action :sync
-  destination '/srv/erza'
+  destination node[:directory]
   repository node[:repository]
 end
 
-remote_file '/srv/erza/.env' do
+remote_file "#{node[:directory]}/.env" do
   action :create
   source '~/Dropbox/erza/.env'
   mode '644'

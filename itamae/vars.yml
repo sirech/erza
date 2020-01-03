@@ -1,2 +1,3 @@
 ci_user: travis
 repository: https://github.com/sirech/erza.git
+directory: /srv/erza
