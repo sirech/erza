@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -eu -o pipefail
+
+NODE_ATTRIBUTES="--node-yaml vars.yml"
+
+(
+  cd itamae
+  # shellcheck disable=SC2086
+  bundle exec itamae ssh --host erza ${NODE_ATTRIBUTES} setup.rb
+)

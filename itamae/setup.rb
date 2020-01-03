@@ -1,12 +1,12 @@
 # User
 
-user 'travis' do
+user node[:ci_user] do
   password ''
   system_user true
   shell '/bin/bash'
 end
 
-directory '/home/travis/.ssh' do
+directory "/home/#{node[:ci_user]}/.ssh" do
   action :create
   owner 'travis'
   group 'travis'
@@ -14,16 +14,16 @@ directory '/home/travis/.ssh' do
 end
 
 execute 'add to docker group' do
-  command 'usermod -aG docker travis'
+  command "usermod -aG docker #{node[:ci_user]}"
 end
 
 if File.exist?('./files/authorized_keys')
   puts 'installing authorized keys'
-  remote_file '/home/travis/.ssh/authorized_keys' do
+  remote_file "/home/#{node[:ci_user]}/.ssh/authorized_keys" do
     action :create
     source '../files/authorized_keys'
-    owner 'travis'
-    group 'travis'
+    owner node[:ci_user]
+    group node[:ci_user]
     mode '600'
   end
 else
@@ -74,6 +74,6 @@ end
 %i[main shelf2_public cookery2_public].each do |folder|
   directory "/srv/#{folder}" do
     action :create
-    owner 'travis'
+    owner node[:ci_user]
   end
 end
