@@ -1,35 +1,50 @@
-## Installation Guide
+# erza
 
-    bash <(curl -s https://raw.githubusercontent.com/sirech/erza/master/bin/install)
+Setting up a complete server
 
-## Running the server
+## Pre-requisites
 
-### Environment
+- `ssh` connection to the server needs to be possible, and aliased to `erza`.
+- `ruby` needs to be installed ([version](./ruby-version))
 
-`.env.example` file should be copied to `.env`. Adapt the values.
+## Server
 
-### First run
+### Provisioning
 
-Before running `docker-compose` for the first time, do:
+It is done with [itamae](https://github.com/itamae-kitchen/itamae). Can be run with
 
-    docker-compose run shelf2 rake db:create
-    docker-compose run shelf2 rake db:migrate
+```
+itamae/run
+```
+
+to fully provision everything, certain files need to be accessible:
+
+- `.env`: variables used by `docker-compose`
+- `authorized_keys`: deployment user
+- `cert`: Existing certificates (letsencrypt)
+
+### ServerSpec tests
+
+The test suite for the remote server can be run with
+
+```
+bundle install
+rake
+```
+
+## Applications
+
+### Restoring an application
+
+TODO: right now it's a bit manual, using the pipeline is the best bet
+
+### Backup
+
+See [the backup script](./bin/backup) is used for the DBs mainly
     
-### Running
+### Serving a new subdomain
 
-    docker-compose up -d
-    
-## Data
-
-### Backup of the database
-
-    docker exec db mysqldump -u root --password=PASSWORD shelf2_production > backup.sql
-
-### Restore existing database
-
-    cat backup.sql | docker exec -i db mysql -u root --password=PASSWORD shelf2_production
-    
-## Serving a new https subdomain
+Everything is parametrized using [gomplate](https://docs.gomplate.ca/). Adding a new domain should require minimal effort, basicallly a variable for the `server_name`. If there is a backend it will need extending the [docker-compose configuration](./docker-compose.yml).
 
 In order to serve a new subdomain using https, we need to complete the challenge from the `certbot`. The call that we are aiming to make from the server looks like this:
 
@@ -37,31 +52,4 @@ In order to serve a new subdomain using https, we need to complete the challenge
 docker run -it --rm -v /cert:/etc/letsencrypt -v /srv/${subdomain}_public:/var/www deliverous/certbot certonly --webroot -d ${subdomain}.${domain} --register-unsafely-without-email --agree-tos -w /var/www
 ```
 
-we need to do some preparations:
-
-- the folder has to be created
-- `nginx` needs a temporary configuration to serve static files:
-
-```nginx
-server {
-    listen *;
-    server_name ${DOMAIN_HOST};
-
-    location / {
-      root /srv/${subdomain}_public;
-    }
- }
-```
-
-- the domain has to be passed to the `nginx` container through the `environment`
-- the folder needs to be mounted so that `nginx` can serve it.
-
-```yaml
-    volumes:
-      - "/srv/${subdomain}_public:/srv/${subdomain}_public:ro"
-```
-
-all this code can be removed after creating the certificate if we are not serving static assets in the new subdomain. After this, the renew will happen based on the stored certificate automatically.
-
-
-
+The configuration needs to be started in two steps: First the http part, then the https once we have a certificate.
