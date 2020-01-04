@@ -2,6 +2,12 @@ require 'spec_helper'
 
 containers = %i[nginx db shelf2 echo cookery2]
 
+%i[docker-ce docker-compose].each do |pkg|
+  describe package(pkg) do
+    it { is_expected.to be_installed }
+  end
+end
+
 describe service('docker') do
   it { is_expected.to be_running }
 end
