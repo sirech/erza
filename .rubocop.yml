@@ -1,0 +1,38 @@
+require: rubocop-rspec
+
+AllCops:
+  Exclude:
+    - vendor/**/*
+    - Gemfile
+    - Rakefile
+    - bin/*
+
+Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context']
+
+Layout/LineLength:
+  Max: 100
+
+RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/DescribeClass:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Max: 10
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MultipleDescribes:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
