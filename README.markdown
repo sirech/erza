@@ -23,6 +23,20 @@ to fully provision everything, certain files need to be accessible:
 - `authorized_keys`: deployment user
 - `cert`: Existing certificates (letsencrypt)
 
+### Local testing
+
+The setup can be tested locally using [Vagrant](https://www.vagrantup.com/). You need to spin up an instance first with:
+
+```
+vagrant up --provision
+```
+
+And then run _itamae_ against the local box:
+
+```
+TARGET="--vagrant --host erza-vagrant" itamae/run
+```
+
 ### ServerSpec tests
 
 The test suite for the remote server can be run with
