@@ -2,3 +2,4 @@
 files/
 .vagrant/
 .terraform/
+terraform.tfstate*
