@@ -21,8 +21,8 @@ resource "auth0_client" "cookery2-frontend-test" {
 }
 
 resource "auth0_client_grant" "cookery2-frontend-test" {
-  client_id = "${auth0_client.cookery2-frontend-test.id}"
-  audience  = "${auth0_resource_server.cookery2-backend.identifier}"
+  client_id = auth0_client.cookery2-frontend-test.id
+  audience  = auth0_resource_server.cookery2-backend.identifier
   scope     = []
 }
 
