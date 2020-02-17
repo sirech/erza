@@ -1,5 +1,5 @@
 resource "auth0_client" "cookery2-frontend" {
-  name        = "cookery2-frontend-stuff"
+  name        = "cookery2-frontend"
   description = "Cookery2 Application - Terraform generated"
   app_type    = "spa"
   callbacks   = ["http://localhost:3003/callback", "https://${local.cookery2_host}/callback"]
@@ -13,7 +13,7 @@ resource "auth0_client" "cookery2-frontend" {
 }
 
 resource "auth0_client" "cookery2-frontend-test" {
-  name        = "cookery2-frontend-stuff-test"
+  name        = "cookery2-frontend-test"
   description = "Cookery2 Application (Test) - Terraform generated"
   app_type    = "non_interactive"
 
@@ -27,9 +27,10 @@ resource "auth0_client_grant" "cookery2-frontend-test" {
 }
 
 resource "auth0_resource_server" "cookery2-backend" {
-  name        = "cookery2-backend-stuff"
-  identifier  = "temp.${local.cookery2_host}"
+  name        = "cookery2-backend"
+  identifier  = local.cookery2_host
   signing_alg = "RS256"
+  enforce_policies = true
 
   token_lifetime         = 86400
   token_lifetime_for_web = 7200
@@ -39,5 +40,14 @@ resource "auth0_resource_server" "cookery2-backend" {
   scopes {
     value       = "create:recipes"
     description = "Can create a recipe"
+  }
+}
+
+resource "auth0_role" "cookery2-editor" {
+  name = "Cookery2 - Editor"
+
+  permissions {
+    name                       = "create:recipes"
+    resource_server_identifier = auth0_resource_server.cookery2-backend.identifier
   }
 }
