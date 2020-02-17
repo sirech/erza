@@ -27,9 +27,9 @@ resource "auth0_client_grant" "cookery2-frontend-test" {
 }
 
 resource "auth0_resource_server" "cookery2-backend" {
-  name        = "cookery2-backend"
-  identifier  = local.cookery2_host
-  signing_alg = "RS256"
+  name             = "cookery2-backend"
+  identifier       = local.cookery2_host
+  signing_alg      = "RS256"
   enforce_policies = true
 
   token_lifetime         = 86400
