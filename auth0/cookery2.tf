@@ -3,7 +3,6 @@ resource "auth0_client" "cookery2-frontend" {
   description = "Cookery2 Application - Terraform generated"
   app_type    = "spa"
   callbacks   = ["http://localhost:3003/callback", "https://${local.cookery2_host}/callback"]
-  web_origins = ["https://${var.auth0_domain}"]
 
   oidc_conformant = true
 
