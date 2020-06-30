@@ -1,3 +1,4 @@
 ci_user: travis
 repository: https://github.com/sirech/erza.git
 directory: /srv/erza
+lock_version: 0.2.0

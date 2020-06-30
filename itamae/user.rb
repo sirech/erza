@@ -6,8 +6,8 @@ end
 
 directory "/home/#{node[:ci_user]}/.ssh" do
   action :create
-  owner 'travis'
-  group 'travis'
+  owner node[:ci_user]
+  group node[:ci_user]
   mode '700'
 end
 
