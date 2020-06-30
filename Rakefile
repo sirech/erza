@@ -1,7 +1,7 @@
 require 'rake'
 require 'rspec/core/rake_task'
 
-task :spec    => 'spec:all'
+task :spec    => 'spec:default'
 task :default => :spec
 
 namespace :spec do
@@ -14,7 +14,7 @@ namespace :spec do
   end
 
   task :all     => targets
-  task :default => :all
+  task :default => :erza
 
   targets.each do |target|
     original_target = target == "_default" ? target[1..-1] : target
