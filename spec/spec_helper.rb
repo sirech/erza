@@ -16,7 +16,17 @@ end
 
 host = ENV['TARGET_HOST']
 
-options = Net::SSH::Config.for(host)
+options = if host =~ /vagrant/
+            require 'tempfile'
+
+            config = Tempfile.new('', Dir.tmpdir)
+            config.write(`vagrant ssh-config #{host}`)
+            config.close
+
+            Net::SSH::Config.for(host, [config.path])
+          else
+            Net::SSH::Config.for(host)
+          end
 
 options[:user] ||= Etc.getlogin
 

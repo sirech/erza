@@ -11,10 +11,12 @@ Setting up a complete server
 
 ### Provisioning
 
-It is done with [itamae](https://github.com/itamae-kitchen/itamae). Can be run with
+It is done with [itamae](https://github.com/itamae-kitchen/itamae), and tested with [serverspec](https://serverspec.org/).
 
 ```
 itamae/run
+bundle install
+rake # Confirms that installation worked
 ```
 
 to fully provision everything, certain files need to be accessible:
@@ -31,19 +33,11 @@ The setup can be tested locally using [Vagrant](https://www.vagrantup.com/). You
 vagrant up --provision
 ```
 
-And then run _itamae_ against the local box:
+And then run _itamae_ and _serverspec_ against the local box:
 
 ```
 TARGET="--vagrant --host erza-vagrant" itamae/run
-```
-
-### ServerSpec tests
-
-The test suite for the remote server can be run with
-
-```
-bundle install
-rake
+rake spec:erza-vagrant
 ```
 
 ## Applications
