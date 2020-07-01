@@ -19,7 +19,6 @@ cd ${dest}
 find . -mtime +14 -not -path "." | xargs rm -rf
 cp -Rf $folder/* .
 
-
 echo '*** Restarting nginx ***'
 cd ${repo}
-docker-compose restart nginx || { echo "ERROR: Could not restart nginx"; exit 1; }
+lock -c "docker-compose restart nginx" -l /tmp/lock || { echo "ERROR: Could not restart nginx"; exit 1; }

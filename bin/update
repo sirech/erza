@@ -20,4 +20,4 @@ fi
 echo '*** Pulling latest images ***'
 docker-compose pull $app || { echo "ERROR: Could not pull images [$app]"; exit 1; }
 echo '*** Starting images ***'
-docker-compose up -d --build $app || { echo "ERROR: Could not start images [$app]"; exit 1; }
+lock -c "docker-compose up -d --build $app" -l /tmp/lock || { echo "ERROR: Could not start images [$app]"; exit 1; }
