@@ -8,3 +8,8 @@ describe file('/usr/local/bin/lock') do
   it { is_expected.to be_file }
   it { is_expected.to be_executable }
 end
+
+describe file('/tmp/lock') do
+  it { is_expected.to be_file }
+  it { is_expected.to be_owned_by(:travis) }
+end
