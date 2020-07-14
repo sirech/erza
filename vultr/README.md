@@ -1,6 +1,6 @@
-# Auth0
+# vultr
 
-This is an [auth0](https://auth0.com/) configuration to enable OAuth authz, managed through [terraform](https://www.terraform.io/).
+This is a configuration for [vultr](https://www.vultr.com/), managed through [terraform](https://www.terraform.io/).
 
 ## Setup
 
