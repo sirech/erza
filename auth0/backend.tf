@@ -3,7 +3,7 @@ terraform {
     organization = "sirech"
 
     workspaces {
-      name = "erza"
+      name = "auth0"
     }
   }
 }
