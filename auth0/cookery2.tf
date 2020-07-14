@@ -3,8 +3,15 @@ resource "auth0_client" "cookery2-frontend" {
   description = "Cookery2 Application - Terraform generated"
   app_type    = "spa"
   callbacks   = ["http://localhost:3003/callback", "https://${local.cookery2_host}/callback"]
+  web_origins = ["http://localhost:3003", "https://${local.cookery2_host}"]
 
   oidc_conformant = true
+
+  grant_types = [
+    "authorization_code",
+    "implicit",
+    "refresh_token",
+  ]
 
   jwt_configuration {
     alg = "RS256"
