@@ -1,5 +1,5 @@
 locals {
-  sub_domains = ["cookery2", "echo", "shelf2"]
+  sub_domains = toset(["cookery2", "echo", "shelf2"])
 }
 
 resource "vultr_dns_domain" "domain" {
