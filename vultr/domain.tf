@@ -34,3 +34,12 @@ resource "vultr_dns_record" "domain_subdomain" {
 
   ttl = local.ttl
 }
+
+resource "vultr_dns_record" "domain_cname_cani" {
+  domain = vultr_dns_domain.domain.id
+  name   = "cani"
+  data   = var.cani_domain
+  type   = "CNAME"
+
+  ttl = local.ttl
+}
