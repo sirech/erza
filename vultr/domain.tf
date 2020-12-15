@@ -3,7 +3,8 @@ locals {
 }
 
 resource "vultr_dns_domain" "domain" {
-  domain = var.domain
+  domain  = var.domain
+  dns_sec = "disabled"
 }
 
 resource "vultr_dns_record" "domain_main" {

@@ -1,5 +1,6 @@
 resource "vultr_dns_domain" "alternate" {
-  domain = var.alternate_domain
+  domain  = var.alternate_domain
+  dns_sec = "disabled"
 }
 
 resource "vultr_dns_record" "alternate_main" {
