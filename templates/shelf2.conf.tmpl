@@ -6,12 +6,15 @@ upstream shelf2 {
 
 server {
     server_name {{ getenv "SHELF2_HOST" }};
+    {{ template "ssl-listen" 443 }}
+
     root /srv/shelf2_public;
+
+    {{ template "acme-certificate" .Env.SHELF2_HOST }}
+    include /etc/nginx/includes/ssl-settings.conf;
 
     keepalive_timeout 5;
     client_max_body_size 10M;
-
-    {{ template "ssl-enabled" .Env.SHELF2_HOST }}
 
     include /etc/nginx/security-headers.conf;
     add_header Content-Security-Policy "default-src 'self'; connect-src 'self' {{ getenv "AUTH0_HOST" }}; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'";

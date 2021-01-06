@@ -6,9 +6,12 @@ upstream cookery2 {
 
 server {
     server_name {{ getenv "COOKERY2_HOST" }};
+    {{ template "ssl-listen" 443 }}
+
     root /srv/cookery2_public;
 
-    {{ template "ssl-enabled" .Env.COOKERY2_HOST }}
+    {{ template "acme-certificate" .Env.COOKERY2_HOST }}
+    include /etc/nginx/includes/ssl-settings.conf;
 
     keepalive_timeout 5;
     client_max_body_size 10M;

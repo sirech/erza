@@ -6,11 +6,13 @@ upstream echo {
 
 server {
     server_name {{ getenv "ECHO_HOST" }};
+    {{ template "ssl-listen" 443 }}
+
+    {{ template "acme-certificate" .Env.ECHO_HOST }}
+    include /etc/nginx/includes/ssl-settings.conf;
 
     keepalive_timeout 5;
     client_max_body_size 10M;
-
-    {{ template "ssl-enabled" .Env.ECHO_HOST }}
 
     location / {
         proxy_pass http://echo;
