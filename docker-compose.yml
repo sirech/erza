@@ -3,7 +3,7 @@ services:
 
   nginx:
     container_name: nginx
-    build: ./nginx
+    image: quay.io/sirech/hardened-nginx:0.1
 
     env_file: .env
 
@@ -17,6 +17,7 @@ services:
       - "443:443"
 
     volumes:
+      - "./templates:/etc/templates:ro"
       - "/srv/main:/srv/main:ro"
       - "/srv/images:/srv/images:ro"
       - "/srv/shelf2_public:/srv/shelf2_public:ro"
@@ -27,8 +28,6 @@ services:
     networks:
       - backend
       - web
-
-    command: ./run.sh
 
     depends_on:
       - shelf2-backend
