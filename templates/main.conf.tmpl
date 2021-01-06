@@ -20,7 +20,7 @@ server {
     {{ template "acme-certificate" .Env.HOST }}
     include /etc/nginx/includes/ssl-settings.conf;
 
-    include /etc/nginx/security-headers.conf;
+    include /etc/nginx/includes/security-headers.conf;
 
     gzip_static on;
 
@@ -29,19 +29,19 @@ server {
         try_files $uri $uri/ $uri/index.html /404.html =404;
 
         # add_header resets headers
-        include /etc/nginx/security-headers.conf;
+        include /etc/nginx/includes/security-headers.conf;
         add_header Cache-Control "no-cache";
     }
 
     location ~* .(js|css|favicon.ico)$ {
         # add_header resets headers
-        include /etc/nginx/security-headers.conf;
+        include /etc/nginx/includes/security-headers.conf;
         add_header Cache-Control public;
     }
 
     location ^~ /static/  {
         # add_header resets headers
-        include /etc/nginx/security-headers.conf;
+        include /etc/nginx/includes/security-headers.conf;
         add_header Cache-Control public;
     }
 }

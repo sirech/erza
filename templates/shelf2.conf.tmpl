@@ -16,7 +16,7 @@ server {
     keepalive_timeout 5;
     client_max_body_size 10M;
 
-    include /etc/nginx/security-headers.conf;
+    include /etc/nginx/includes/security-headers.conf;
     add_header Content-Security-Policy "default-src 'self'; connect-src 'self' {{ getenv "AUTH0_HOST" }}; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'";
 
     location / {
@@ -35,7 +35,7 @@ server {
         expires max;
 
         # add_header resets headers
-        include /etc/nginx/security-headers.conf;
+        include /etc/nginx/includes/security-headers.conf;
         add_header Cache-Control public;
     }
 
