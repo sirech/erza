@@ -3,7 +3,7 @@ services:
 
   nginx:
     container_name: nginx
-    image: quay.io/sirech/hardened-nginx:0.1
+    image: sirech/hardened-nginx:0.1
 
     env_file: .env
 
