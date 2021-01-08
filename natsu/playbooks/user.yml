@@ -12,6 +12,11 @@
         append: yes
         system: true
 
+    - file:
+        path: /home/{{ user }}/.ssh
+        owner: "{{ user }}"
+        state: directory
+
     - copy:
         src: /tmp/authorized_keys
         dest: /home/{{ user }}/.ssh/authorized_keys

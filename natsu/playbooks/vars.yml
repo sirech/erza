@@ -1,7 +1,7 @@
 ---
 ubuntu_distro: focal
-user: vagrant
-repository: https://github.com/sirech/natsu.git
-directory: /srv/natsu
+user: ci
+repository: https://github.com/sirech/erza.git
+directory: /srv/erza
 content:
   - main
