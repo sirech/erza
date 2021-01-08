@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - file:
+        path: "/srv/{{ item }}"
+        owner: "{{ user }}"
+        state: directory
+      loop: "{{ content }}"
+
+    - user:
+        name: "{{ user }}"
+        shell: /bin/bash
+        groups: docker
+        append: yes
+        system: true

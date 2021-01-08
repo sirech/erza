@@ -1,0 +1,16 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure('2') do |config|
+  config.vm.hostname = 'natsu'
+
+  # The most common configuration options are documented and commented below.
+  config.vm.box = 'generic/ubuntu2004'
+
+  config.vm.define :'natsu-vagrant' do
+  end
+
+  config.vm.provision 'ansible' do |ansible|
+    ansible.playbook = 'playbook.yml'
+  end
+end

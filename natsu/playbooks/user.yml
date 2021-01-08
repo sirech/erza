@@ -1,0 +1,20 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - user:
+        name: "{{ user }}"
+        shell: /bin/bash
+        groups: docker
+        append: yes
+        system: true
+
+    - copy:
+        src: /tmp/authorized_keys
+        dest: /home/{{ user }}/.ssh/authorized_keys
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: '600'

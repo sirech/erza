@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - copy:
+        src: /tmp/cert
+        dest: /cert
+
+    # equivalent to: 0 6 * * 1
+    - cron:
+        name: "Renew certificate"
+        minute: "0"
+        hour: "6"
+        weekday: "1"
+        job: "sh {{ directory }}/bin/renew 2>&1 | /usr/bin/logger -t letsencrypt"

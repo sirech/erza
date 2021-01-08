@@ -1,0 +1,7 @@
+---
+ubuntu_distro: focal
+user: vagrant
+repository: https://github.com/sirech/natsu.git
+directory: /srv/natsu
+content:
+  - main

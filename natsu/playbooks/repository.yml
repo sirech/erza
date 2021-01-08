@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - git:
+        repo: "{{ repository }}"
+        dest: "{{ directory }}"
+
+    - copy:
+        src: ~/Dropbox/erza/.env
+        dest: "{{ directory }}"
+        mode: 644
