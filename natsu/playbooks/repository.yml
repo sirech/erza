@@ -11,5 +11,5 @@
 
     - copy:
         src: ~/Dropbox/erza/.env
-        dest: "{{ directory }}"
+        dest: "{{ directory }}/{{ host }}"
         mode: 644

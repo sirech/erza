@@ -5,9 +5,9 @@
     - vars.yml
 
   tasks:
-    - copy:
-        src: /tmp/cert
-        dest: /cert
+    - unarchive:
+        src: /tmp/cert.tgz
+        dest: /
 
     # equivalent to: 0 6 * * 1
     - cron:

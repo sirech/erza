@@ -4,3 +4,5 @@
 - import_playbook: playbooks/repository.yml
 - import_playbook: playbooks/cert.yml
 - import_playbook: playbooks/folders.yml
+- import_playbook: playbooks/binaries.yml
+- import_playbook: playbooks/services.yml

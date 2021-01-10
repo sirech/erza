@@ -22,4 +22,5 @@
         state: present
 
     - name: Update apt and install docker-ce
-      apt: update_cache=yes name=docker-ce state=latest
+      apt: update_cache=yes name={{ item }} state=latest
+      loop: [ 'docker-ce', 'docker-compose' ]

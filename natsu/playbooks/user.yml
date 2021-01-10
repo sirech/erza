@@ -16,6 +16,7 @@
         path: /home/{{ user }}/.ssh
         owner: "{{ user }}"
         state: directory
+        mode: '700'
 
     - copy:
         src: /tmp/authorized_keys

@@ -1,0 +1,19 @@
+version: '3'
+services:
+
+  nginx:
+    container_name: nginx
+    image: sirech/hardened-nginx:0.2
+
+    env_file: .env
+
+    ports:
+      - "80:80"
+      - "443:443"
+
+    volumes:
+      - "./templates:/etc/templates:ro"
+      - "/srv/main:/srv/main:ro"
+      - "/srv/images:/srv/images:ro"
+      - "/cert:/cert:ro"
+      - "/var/www/certbot:/var/www/certbot"
