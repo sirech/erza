@@ -1,0 +1,10 @@
+---
+ubuntu_distro: focal
+user: ci
+repository: https://github.com/sirech/erza.git
+directory: /srv/erza
+content:
+  - shelf2_public
+  - cookery2_public
+lock_version: 0.2.0
+lock_sha1: 7c83dbc0b4adbbabf8c892de3769dd17bf88df3b
