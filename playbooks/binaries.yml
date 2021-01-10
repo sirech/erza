@@ -2,7 +2,7 @@
 - hosts: all
   become: true
   vars_files:
-    - vars.yml
+    - "../{{ host }}/vars.yml"
 
   tasks:
     - get_url:

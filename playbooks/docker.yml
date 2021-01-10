@@ -2,7 +2,7 @@
 - hosts: all
   become: true
   vars_files:
-    - vars.yml
+    - "../{{ host }}/vars.yml"
 
   tasks:
     - apt: name=aptitude state=latest update_cache=yes force_apt_get=yes

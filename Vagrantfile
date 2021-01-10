@@ -19,7 +19,10 @@ Vagrant.configure('2') do |config|
 
   config.vm.define :'natsu-vagrant' do |natsu|
     natsu.vm.provision 'ansible' do |ansible|
-      ansible.playbook = 'natsu/playbook.yml'
+      ansible.playbook = 'playbook.yml'
+      ansible.extra_vars = {
+        'host' => 'natsu'
+      }
     end
   end
 end

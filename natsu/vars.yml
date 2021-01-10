@@ -3,7 +3,6 @@ ubuntu_distro: focal
 user: ci
 repository: https://github.com/sirech/erza.git
 directory: /srv/erza
-host: natsu
 content:
   - main
 lock_version: 0.2.0
