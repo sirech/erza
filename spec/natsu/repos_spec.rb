@@ -20,7 +20,7 @@ describe file("#{repo}/.git") do
   it { is_expected.to be_directory }
 end
 
-describe file("#{repo}/.env") do
+describe file("#{repo}/natsu/.env") do
   it { is_expected.to be_file }
   it { is_expected.to be_readable.by('others') }
 

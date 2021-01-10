@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-containers = %i[db]
+containers = %i[nginx]
 
 %i[docker-ce docker-compose].each do |pkg|
   describe package(pkg) do
