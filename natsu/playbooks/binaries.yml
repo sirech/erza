@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - get_url:
+        url: "https://github.com/sirech/lock/releases/download/v{{ lock_version }}/lock-x86_64-unknown-linux-musl"
+        checksum: "sha1:{{ lock_sha1 }}"
+        dest: /usr/local/bin/lock
+        mode: '755'
+
+    - file:
+        path: /tmp/lock
+        owner: "{{ user }}"
+        state: touch
