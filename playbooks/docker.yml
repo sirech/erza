@@ -8,7 +8,10 @@
     - apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
 
     - name: Install required system packages
-      apt: name={{ item }} state=latest update_cache=yes
+      apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
       loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
 
     - name: Add Docker GPG apt Key
@@ -22,5 +25,8 @@
         state: present
 
     - name: Update apt and install docker-ce
-      apt: update_cache=yes name={{ item }} state=latest
+      apt:
+        update_cache: yes
+        name: "{{ item }}"
+        state: latest
       loop: [ 'docker-ce', 'docker-compose' ]

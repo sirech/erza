@@ -5,8 +5,13 @@
     - "../{{ host }}/vars.yml"
 
   tasks:
+    - apt:
+        name: "{{ item }}"
+        state: latest
+      loop: [ 'zip', 'unzip' ]
+
     - unarchive:
-        src: /tmp/cert.tgz
+        src: /tmp/cert.zip
         dest: /
 
     # equivalent to: 0 6 * * 1
