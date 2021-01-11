@@ -1,1 +1,0 @@
-../erza/deployment_user_spec.rb

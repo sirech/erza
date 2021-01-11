@@ -20,6 +20,14 @@ goal_snapshot-natsu() {
   packer build natsu.pkr.hcl
 }
 
+goal_vagrant-erza() {
+  vagrant up erza-vagrant --provision
+}
+
+goal_snapshot-erza() {
+  packer build erza.pkr.hcl
+}
+
 validate-args() {
   acceptable_args="$(declare -F | sed -n "s/declare -f goal_//p" | tr '\n' ' ')"
 

@@ -1,1 +1,0 @@
-../erza/repos_spec.rb

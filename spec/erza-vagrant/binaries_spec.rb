@@ -1,1 +1,0 @@
-../erza/binaries_spec.rb

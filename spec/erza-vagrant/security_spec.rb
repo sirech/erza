@@ -1,1 +1,0 @@
-../erza/security_spec.rb
