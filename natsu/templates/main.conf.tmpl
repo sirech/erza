@@ -1,15 +1,15 @@
 {{ template "acme-challenge" .Env.HOST }}
-{{ template "acme-challenge" .Env.ALTERNATIVE_HOST }}
+# {{ template "acme-challenge" .Env.ALTERNATIVE_HOST }}
 
-server {
-    server_name {{ getenv "ALTERNATIVE_HOST" }} www.{{ getenv "ALTERNATIVE_HOST" }};
-    {{ template "ssl-listen" 443 }}
+# server {
+#     server_name {{ getenv "ALTERNATIVE_HOST" }} www.{{ getenv "ALTERNATIVE_HOST" }};
+#     {{ template "ssl-listen" 443 }}
 
-    {{ template "acme-certificate" .Env.ALTERNATIVE_HOST }}
-    include /etc/nginx/includes/ssl-settings.conf;
+#     {{ template "acme-certificate" .Env.ALTERNATIVE_HOST }}
+#     include /etc/nginx/includes/ssl-settings.conf;
 
-    return 301 https://{{ getenv "HOST" }}$request_uri;
-}
+#     return 301 https://{{ getenv "HOST" }}$request_uri;
+# }
 
 server {
     server_name {{ getenv "HOST" }} www.{{ getenv "HOST" }};
