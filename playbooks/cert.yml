@@ -5,13 +5,9 @@
     - "../{{ host }}/vars.yml"
 
   tasks:
-    - apt:
-        name: "{{ item }}"
-        state: latest
-      loop: [ 'zip', 'unzip' ]
-
-    - unarchive:
-        src: /tmp/cert.zip
+    - name: Copy certificate respecting symlinks
+      ansible.posix.synchronize:
+        src: /tmp/cert
         dest: /
 
     # equivalent to: 0 6 * * 1

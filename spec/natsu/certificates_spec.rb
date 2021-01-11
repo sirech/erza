@@ -4,8 +4,11 @@ require 'spec_helper'
   describe file("/#{file}") do
     it { is_expected.to be_directory }
     it { is_expected.to be_readable }
-    it { is_expected.to be_directory }
   end
+end
+
+describe command('find /cert/live -type l') do
+  its(:stdout) { is_expected.not_to be_empty }
 end
 
 describe cron do
