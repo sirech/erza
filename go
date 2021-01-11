@@ -17,7 +17,7 @@ goal_vagrant-natsu() {
 }
 
 goal_snapshot-natsu() {
-  packer build natsu.pkr.hcl
+  HOST=natsu packer build snapshot.pkr.hcl
 }
 
 goal_vagrant-erza() {
@@ -25,7 +25,7 @@ goal_vagrant-erza() {
 }
 
 goal_snapshot-erza() {
-  packer build erza.pkr.hcl
+  HOST=erza packer build snapshot.pkr.hcl
 }
 
 validate-args() {
