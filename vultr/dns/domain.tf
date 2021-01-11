@@ -10,7 +10,7 @@ resource "vultr_dns_domain" "domain" {
 resource "vultr_dns_record" "domain_main" {
   domain = vultr_dns_domain.domain.id
   name   = ""
-  data   = var.server_ip
+  data   = data.vultr_instance.natsu.main_ip
   type   = "A"
 
   ttl = local.ttl

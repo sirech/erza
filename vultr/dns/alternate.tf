@@ -6,7 +6,7 @@ resource "vultr_dns_domain" "alternate" {
 resource "vultr_dns_record" "alternate_main" {
   domain = vultr_dns_domain.alternate.id
   name   = ""
-  data   = var.server_ip
+  data   = data.vultr_instance.natsu.main_ip
   type   = "A"
 
   ttl = local.ttl
