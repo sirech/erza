@@ -5,14 +5,8 @@ set -eo pipefail
 set -o nounset
 
 echo '****** UPDATE ******'
-repo=/srv/erza
 folder=$1
 dest=$2
-
-if [ ! -d ${repo} ] ; then
-    echo 'configuration is not there'
-    exit 1
-fi
 
 echo '*** Copying new release ***'
 cd ${dest}
@@ -20,5 +14,4 @@ find . -mtime +14 -not -path "." | xargs rm -rf
 cp -Rf $folder/* .
 
 echo '*** Restarting nginx ***'
-cd ${repo}
-lock -c "docker-compose restart nginx" -l /tmp/lock || { echo "ERROR: Could not restart nginx"; exit 1; }
+lock -c "docker exec nginx nginx -s reload" -l /tmp/lock || { echo "ERROR: Could not restart nginx"; exit 1; }
