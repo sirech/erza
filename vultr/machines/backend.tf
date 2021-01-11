@@ -3,7 +3,7 @@ terraform {
     organization = "sirech"
 
     workspaces {
-      name = "vultr-dns"
+      name = "vultr-machines"
     }
   }
 }
