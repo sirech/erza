@@ -30,7 +30,7 @@ resource "vultr_dns_record" "domain_subdomain" {
 
   domain = vultr_dns_domain.domain.id
   name   = each.value
-  data   = var.server_ip
+  data   = data.vultr_instance.erza.main_ip
   type   = "A"
 
   ttl = local.ttl

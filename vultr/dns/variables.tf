@@ -5,11 +5,9 @@ variable "vultr_api_key" {
 variable "domain" {
   description = "The main domain without subdomains"
 }
+
 variable "alternate_domain" {
   description = "The alternate domain without subdomains"
-}
-variable "server_ip" {
-  description = "The IP of the server"
 }
 
 variable "cani_domain" {
