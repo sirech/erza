@@ -24,17 +24,3 @@
         owner: "{{ user }}"
         group: "{{ user }}"
         mode: '600'
-
-    - file:
-        path: /root/.ssh
-        owner: root
-        state: directory
-        mode: '700'
-
-    - name: Enable SSH Access
-      copy:
-        src: ~/.ssh/id_ed25519.pub
-        dest: /root/.ssh/authorized_keys
-        owner: root
-        group: root
-        mode: '600'

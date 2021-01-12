@@ -6,3 +6,5 @@
 - import_playbook: playbooks/folders.yml
 - import_playbook: playbooks/binaries.yml
 - import_playbook: playbooks/services.yml
+ # Make this the last one!!
+- import_playbook: playbooks/ssh_access.yml
