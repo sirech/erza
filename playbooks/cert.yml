@@ -9,6 +9,7 @@
       ansible.posix.synchronize:
         src: /tmp/cert
         dest: /
+        use_ssh_args: true
 
     # equivalent to: 0 6 * * 1
     - cron:
