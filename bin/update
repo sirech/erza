@@ -2,7 +2,7 @@
 #!/usr/bin/env bash
 
 echo '****** UPDATE ******'
-repo=/srv/erza
+repo=/srv/erza/erza
 app=$1
 
 if [ ! -d ${repo} ] ; then
