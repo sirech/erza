@@ -11,3 +11,8 @@ The variables defined in the [variables.tf](./variables.tf) file can be fetched 
 ## Usage
 
 Run `./go`
+
+## Modules
+
+- [machines](./machines): Provision new instances
+- [dns](./dns): Set DNS routing to point to these instances, plus some extra settings for mail and similar

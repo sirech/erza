@@ -1,23 +1,28 @@
 # erza
 
-Setting up a complete server
+Setting up a complete server infrastructure
 
 ## Pre-requisites
 
-- `ssh` connection to the server needs to be possible, and aliased to `erza`.
 - `ruby` needs to be installed ([version](./ruby-version))
+- `packer`
+- `vagrant`
 
 ## Server
 
-### Provisioning
+### Snapshots
 
-It is done with [itamae](https://github.com/itamae-kitchen/itamae), and tested with [serverspec](https://serverspec.org/).
+Provisioning is done by creating snapshots with [packer](https://www.packer.io/). The targets that launch the process are:
 
 ```
-itamae/run
-bundle install
-rake # Confirms that installation worked
+./go install-plugin # Installs required plugin first
+./go snapshot-{erza,natsu}
 ```
+
+The server is set up with [ansible](https://www.ansible.com/), with the following [playbooks](./playbooks). There are two servers being provisioned, with the server-specific configuration in the following folders:
+
+- [erza](./erza)
+- [natsu](./natsu)
 
 to fully provision everything, certain files need to be accessible:
 
@@ -25,20 +30,34 @@ to fully provision everything, certain files need to be accessible:
 - `authorized_keys`: deployment user
 - `cert`: Existing certificates (letsencrypt)
 
-### Local testing
+### Provisioning
 
-The setup can be tested locally using [Vagrant](https://www.vagrantup.com/). You need to spin up an instance first with:
+The provisioning of the actual servers uses [terraform](https://www.terraform.io/), through different modules. It's all in [this](./vultr) folder.
+
+## Testing
+
+### Local VM
+
+[vagrant](https://www.vagrantup.com/) VMs are available to test things locally first. The hosts can be provisioned with:
 
 ```
-vagrant up --provision
+./go vagrant-{erza,natsu}
 ```
 
-And then run _itamae_ and _serverspec_ against the local box:
+These VMs are locally accessible through `ssh` and mirror the result of the snapshot.
+
+### Automated tests
+
+[ServerSpec](https://serverspec.org/) is used for automated testing. Both the local setup and the remote server can be tested.
 
 ```
-TARGET="--vagrant --host erza-vagrant" itamae/run
-rake spec:erza-vagrant
+rake spec:{natsu,erza} # Remote
+rake spec:{natsu,erza}-vagrant # Local
 ```
+
+## Auth0
+
+See [auth0](./auth0)
 
 ## Applications
 
@@ -52,7 +71,7 @@ See [the backup script](./bin/backup) is used for the DBs mainly
     
 ### Serving a new subdomain
 
-Everything is parametrized using [gomplate](https://docs.gomplate.ca/). Adding a new domain should require minimal effort, basicallly a variable for the `server_name`. If there is a backend it will need extending the [docker-compose configuration](./docker-compose.yml).
+Everything is parametrized using [gomplate](https://docs.gomplate.ca/). Adding a new domain should require minimal effort, basicallly a variable for the `server_name`. If there is a backend it will need extending the [docker-compose configuration](./erza/docker-compose.yml).
 
 In order to serve a new subdomain using https, we need to complete the challenge from the `certbot`. The call that we are aiming to make from the server looks like this:
 
