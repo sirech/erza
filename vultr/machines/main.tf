@@ -22,7 +22,7 @@ data "vultr_snapshot" "erza-snapshot" {
 }
 
 resource "vultr_instance" "erza" {
-  plan        = var.instance_type
+  plan        = "vc2-1c-2gb"
   region      = var.region
   snapshot_id = data.vultr_snapshot.erza-snapshot.id
 
