@@ -36,7 +36,7 @@ end
   end
 end
 
-describe file("#{repo}/docker-compose.yml") do
+describe file("#{repo}/erza/docker-compose.yml") do
   it { is_expected.to be_file }
   it { is_expected.to be_readable.by('others') }
 end
