@@ -76,7 +76,7 @@ Everything is parametrized using [gomplate](https://docs.gomplate.ca/). Adding a
 In order to serve a new subdomain using https, we need to complete the challenge from the `certbot`. The call that we are aiming to make from the server looks like this:
 
 ```
-docker run -it --rm -v /cert:/etc/letsencrypt -v /srv/${subdomain}_public:/var/www deliverous/certbot certonly --webroot -d ${subdomain}.${domain} --register-unsafely-without-email --agree-tos -w /var/www
+docker run -it --rm -v /cert:/etc/letsencrypt -v /var/www/certbot:/var/www/certbot deliverous/certbot certonly --webroot -d ${subdomain}.${domain} --register-unsafely-without-email --agree-tos -w /var/www/certbot
 ```
 
 The configuration needs to be started in two steps: First the http part, then the https once we have a certificate.
