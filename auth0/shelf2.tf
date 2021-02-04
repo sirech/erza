@@ -2,8 +2,8 @@ resource "auth0_client" "shelf2-frontend" {
   name        = "shelf2-frontend"
   description = "Shelf2 Application - Terraform generated"
   app_type    = "spa"
-  callbacks   = ["http://localhost:9090/callback", "https://${local.shelf2_host}/callback"]
-  web_origins = ["http://localhost:9090", "https://${local.shelf2_host}"]
+  callbacks   = ["http://localhost:3000/callback", "https://${local.shelf2_host}/callback"]
+  web_origins = ["http://localhost:3000", "https://${local.shelf2_host}"]
 
   oidc_conformant = true
 
