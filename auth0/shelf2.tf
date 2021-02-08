@@ -9,7 +9,6 @@ resource "auth0_client" "shelf2-frontend" {
 
   grant_types = [
     "authorization_code",
-    "implicit",
     "refresh_token",
   ]
 
