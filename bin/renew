@@ -8,3 +8,13 @@ cd ${repo}
 
 echo '****** Renewing certificate ******'
 docker run --rm -v /cert:/etc/letsencrypt -v /var/www/certbot:/var/www/certbot deliverous/certbot renew -w /var/www/certbot
+
+if [ -f natsu/.env ] ; then
+  host=natsu
+else
+  host=erza
+fi
+
+echo "****** Restarting $host ******"
+cd $host
+docker-compose restart nginx
