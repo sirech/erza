@@ -21,3 +21,11 @@ variable "site_verification" {
 variable "ck_id" {
   description = "The id for convertkit"
 }
+
+variable "gh_verification_domain" {
+  description = "GH domain"
+}
+
+variable "gh_verification_code" {
+  description = "GH code"
+}

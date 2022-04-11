@@ -44,3 +44,12 @@ resource "vultr_dns_record" "domain_cname_cani" {
 
   ttl = local.ttl
 }
+
+resource "vultr_dns_record" "gh_verification" {
+  domain = vultr_dns_domain.domain.id
+  name   = var.gh_verification_domain
+  data   = var.gh_verification_code
+  type   = "TXT"
+
+  ttl = local.ttl
+}
