@@ -21,7 +21,7 @@ resource "vultr_dns_record" "domain_main" {
 resource "vultr_dns_record" "domain_cname" {
   domain = vultr_dns_domain.domain.id
   name   = "www"
-  data   = var.domain
+  data   = var.gh_domain
   type   = "CNAME"
 
   ttl = local.ttl

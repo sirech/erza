@@ -23,13 +23,17 @@ variable "ck_id" {
 }
 
 variable "gh_verification_domain" {
-  description = "GH domain"
+  description = "GH domain, needed to verify domain"
 }
 
 variable "gh_verification_code" {
-  description = "GH code"
+  description = "GH code, needed to verify domain"
+}
+
+variable "gh_domain" {
+  description = "End Domain, needed for www redirection"
 }
 
 variable "gh_ips" {
-  description = "IPs for GH"
+  description = "IPs for GH, needed to serve web"
 }
