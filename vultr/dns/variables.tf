@@ -29,3 +29,7 @@ variable "gh_verification_domain" {
 variable "gh_verification_code" {
   description = "GH code"
 }
+
+variable "gh_ips" {
+  description = "IPs for GH"
+}
