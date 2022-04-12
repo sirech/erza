@@ -25,5 +25,6 @@ output "grafana-client-id" {
 }
 
 output "grafana-client-secret" {
-  value = auth0_client.grafana-frontend.client_secret
+  value     = auth0_client.grafana-frontend.client_secret
+  sensitive = true
 }
