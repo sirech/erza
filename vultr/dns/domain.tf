@@ -8,9 +8,11 @@ resource "vultr_dns_domain" "domain" {
 }
 
 resource "vultr_dns_record" "domain_main" {
+  for_each = toset(var.gh_ips)
+
   domain = vultr_dns_domain.domain.id
   name   = ""
-  data   = data.vultr_instance.natsu.main_ip
+  data   = each.value
   type   = "A"
 
   ttl = local.ttl
