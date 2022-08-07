@@ -30,6 +30,10 @@ variable "gh_verification_code" {
   description = "GH code, needed to verify domain"
 }
 
+variable "gh_alternate_verification_code" {
+  description = "GH code, needed to verify alternate domain"
+}
+
 variable "gh_domain" {
   description = "End Domain, needed for www redirection"
 }
