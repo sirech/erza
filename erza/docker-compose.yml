@@ -36,7 +36,7 @@ services:
 
   db:
     container_name: db
-    image: mysql:5.7
+    image: mysql:8.2
 
     env_file: .env
 
