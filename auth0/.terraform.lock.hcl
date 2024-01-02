@@ -1,21 +1,24 @@
 # This file is maintained automatically by "terraform init".
 # Manual edits may be lost in future updates.
 
-provider "registry.terraform.io/alexkappa/auth0" {
-  version     = "0.17.2"
-  constraints = "~> 0.17.1"
+provider "registry.terraform.io/auth0/auth0" {
+  version     = "1.1.1"
+  constraints = "~> 1.1.1"
   hashes = [
-    "h1:fczvIzd1nmRETP0Ogk8XJ8cNmCQ9wHCUkh/s2Mf/jfI=",
-    "zh:1586417f3f0f32cab7b952970e009b28845391e6fb79a867c908f2326289e667",
-    "zh:23e4ddbf39fa5de0ed741ab2d9ff4d43bc2af5aa1199c27732ed60e78c54e1b9",
-    "zh:25a5717abef4ee5939c494681874fac696af88daf3872b1bad537927232a2ff1",
-    "zh:44f9479c5e2f0db0d339710a70dce12af3be625d4f4436d9495c8fda1fa6c779",
-    "zh:78bd5d9823837cc98cf3e1c86768c6b3f4a71890ec9df8f60e08734a11a5ab11",
-    "zh:887b124824e71d9d843cee5df4d0e96129c7f3eccc9ea7b5b5b93f0c3dc76cbb",
-    "zh:ac2254d0323ef2d84eb50c368ce950f17d4ac35ecca46b8bca530511da8a3612",
-    "zh:bbd953d47ee3540bc012184ea6ff8bf8fab03dcb6a7a67f1b63331d0311f2837",
-    "zh:c0bd0d8917101c7baf2d0183f2e164a09deeeddb8394a2d16ce9b0da4d8f033c",
-    "zh:d15f72ebead3c6a3ccd2bbf4b42885dbccab9535f137c6d44d71980cca727dfe",
-    "zh:ec300dcee88c04339fb1c0b37ea70794af01941eed658a50fc3b1dfb5a548aac",
+    "h1:s7JTRB1SOjgRqR+Ge9Dzvd2pnQM2uEq1FMhysXXFvew=",
+    "zh:2fecf328558331bb9faa31bfc49c7610c08dd718624733aacb687c982454008e",
+    "zh:35ca00946e511d9a03844d768bc1b21a1c87fc3ff547aa3e120a73e27559ce1f",
+    "zh:37ff592212604c32da2d6417bd519ae92fe09e97258e7479ca91d3d2a1a72815",
+    "zh:57980a701c68a3fd3c96b23d7289fb353fa9311697a8fa3061aad6115e459f6a",
+    "zh:5a12b84e88ecddec5e22cae92a5e9df7f715f966680d199923d9b24f9c2b8367",
+    "zh:6161a39be72e48ff101b2bfea03a8c08f3b4ee3892dc5ddf25098c3688f9aea1",
+    "zh:7f8ed5fc3e601e47e67a044fd432f56dc6d5ce5cfd8bf0e6d94432248d720b55",
+    "zh:8f4403503f6271deca4eb65a0a9c20b233521d46b9befdf948d94a53e6a98bff",
+    "zh:92b6abad23181ff2b468ad2d88fb2c92e0e3204cc0f575b532901a7dd0c5c959",
+    "zh:a14e498e9a3bcf14d8cb82fe66a9b1c06945a05d7c91db4a1950cf9aa9775c29",
+    "zh:b4ca1ee67e40e64a8256f18ca6aa0dad74517b5fcff4f89964c16a462cf2b4d6",
+    "zh:c5667e0e4038209475cb9f743756cad38def762cf74bbb5f1e6d076158fa12d6",
+    "zh:dc11dbe6bfe2eca64f6c672c52093805babfd5d9c04bf51edd06532523761db4",
+    "zh:f7a5505eda3c7405d75633661fef095e11e75d24905cc24afbcd64c681122412",
   ]
 }

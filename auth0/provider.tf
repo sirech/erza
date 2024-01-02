@@ -1,8 +1,8 @@
 terraform {
   required_providers {
     auth0 = {
-      source  = "alexkappa/auth0"
-      version = "~> 0.17.1"
+      source  = "auth0/auth0"
+      version = "~> 1.1.1"
     }
   }
 }

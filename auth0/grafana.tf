@@ -6,6 +6,11 @@ resource "auth0_client" "grafana-frontend" {
   web_origins = ["https://${local.grafana_host}"]
 }
 
+resource "auth0_client_credentials" "grafana-frontend" {
+  client_id             = auth0_client.grafana-frontend.id
+  authentication_method = "client_secret_post"
+}
+
 resource "auth0_role" "grafana-user" {
   name = "Grafana - User"
 }
@@ -25,6 +30,6 @@ output "grafana-client-id" {
 }
 
 output "grafana-client-secret" {
-  value     = auth0_client.grafana-frontend.client_secret
+  value     = auth0_client_credentials.grafana-frontend.client_secret
   sensitive = true
 }

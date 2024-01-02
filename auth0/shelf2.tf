@@ -9,7 +9,6 @@ resource "auth0_client" "shelf2-frontend" {
 
   grant_types = [
     "authorization_code",
-    "implicit",
     "refresh_token",
   ]
 
@@ -22,14 +21,17 @@ resource "auth0_client" "shelf2-frontend-test" {
   name        = "shelf2-frontend-test"
   description = "Shelf2 Application (Test) - Terraform generated"
   app_type    = "non_interactive"
+}
 
-  token_endpoint_auth_method = "client_secret_post"
+resource "auth0_client_credentials" "shelf2-frontend-test" {
+  client_id             = auth0_client.shelf2-frontend-test.id
+  authentication_method = "client_secret_post"
 }
 
 resource "auth0_client_grant" "shelf2-frontend-test" {
   client_id = auth0_client.shelf2-frontend-test.id
   audience  = auth0_resource_server.shelf2-backend.identifier
-  scope     = []
+  scopes    = []
 }
 
 resource "auth0_resource_server" "shelf2-backend" {
@@ -43,14 +45,23 @@ resource "auth0_resource_server" "shelf2-backend" {
 
   skip_consent_for_verifiable_first_party_clients = true
 
+}
+
+resource "auth0_resource_server_scopes" "shelf2-backend" {
+  resource_server_identifier = auth0_resource_server.shelf2-backend.identifier
+
   scopes {
-    value       = "create:books"
+    name        = "create:books"
     description = "Can create a book"
   }
 }
 
 resource "auth0_role" "shelf2-editor" {
   name = "Shelf2 - Editor"
+}
+
+resource "auth0_role_permissions" "shelf2-editor" {
+  role_id = auth0_role.shelf2-editor.id
 
   permissions {
     name                       = "create:books"

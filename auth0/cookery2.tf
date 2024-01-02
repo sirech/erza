@@ -21,14 +21,17 @@ resource "auth0_client" "cookery2-frontend-test" {
   name        = "cookery2-frontend-test"
   description = "Cookery2 Application (Test) - Terraform generated"
   app_type    = "non_interactive"
+}
 
-  token_endpoint_auth_method = "client_secret_post"
+resource "auth0_client_credentials" "cookery2-frontend-test" {
+  client_id             = auth0_client.cookery2-frontend-test.id
+  authentication_method = "client_secret_post"
 }
 
 resource "auth0_client_grant" "cookery2-frontend-test" {
   client_id = auth0_client.cookery2-frontend-test.id
   audience  = auth0_resource_server.cookery2-backend.identifier
-  scope     = []
+  scopes    = []
 }
 
 resource "auth0_resource_server" "cookery2-backend" {
@@ -41,15 +44,23 @@ resource "auth0_resource_server" "cookery2-backend" {
   token_lifetime_for_web = 7200
 
   skip_consent_for_verifiable_first_party_clients = true
+}
+
+resource "auth0_resource_server_scopes" "cookery2-backend" {
+  resource_server_identifier = auth0_resource_server.cookery2-backend.identifier
 
   scopes {
-    value       = "create:recipes"
+    name        = "create:recipes"
     description = "Can create a recipe"
   }
 }
 
 resource "auth0_role" "cookery2-editor" {
   name = "Cookery2 - Editor"
+}
+
+resource "auth0_role_permissions" "cookery2-editor" {
+  role_id = auth0_role.cookery2-editor.id
 
   permissions {
     name                       = "create:recipes"
