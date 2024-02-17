@@ -15,14 +15,25 @@ resource "auth0_role" "grafana-user" {
   name = "Grafana - User"
 }
 
-resource "auth0_rule" "grafana-drop-unauthorized" {
-  name = "grafana-drop-unauthorized"
-  script = templatefile("${path.module}/drop-unauthorized-grafana.js", {
+resource "auth0_action" "grafana-drop-unauthorized" {
+  name    = "grafana-drop-unauthorized"
+  runtime = "node18"
+
+  deploy = true
+  code = templatefile("${path.module}/drop-unauthorized-grafana.js", {
     application : auth0_client.grafana-frontend.name,
     role : auth0_role.grafana-user.name
   })
 
-  enabled = true
+  supported_triggers {
+    id      = "post-login"
+    version = "v3"
+  }
+}
+
+resource "auth0_trigger_action" "grafana-drop-unauthorized" {
+  trigger   = "post-login"
+  action_id = auth0_action.grafana-drop-unauthorized.id
 }
 
 output "grafana-client-id" {
