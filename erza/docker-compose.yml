@@ -58,6 +58,7 @@ services:
     environment:
       DB_HOST: db
       RAILS_LOG_TO_STDOUT: 1
+      MARIADB_TLS_DISABLE_PEER_VERIFICATION: "1"
 
     command: rails s -b 0.0.0.0
 
